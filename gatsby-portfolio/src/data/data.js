@@ -1,10 +1,10 @@
 module.exports = {
-  SiteTitle: 'Abdelali',
+  SiteTitle: 'Owen Craston',
   Sitelogo: '#',
-  SiteLogoText: 'Abdelali',
-  SiteAuthor: 'Abdelali Dahir',
-  SiteDescription: 'Front End Developer',
-  defaultDescription: 'Software engineer!', 
+  SiteLogoText: 'Owen Craston',
+  SiteAuthor: 'Owen Craston',
+  SiteDescription: 'Developer',
+  defaultDescription: 'Developer', 
   githubApiQuery: `query ($number_of_repos: Int!) {
     viewer {
       name
@@ -39,22 +39,20 @@ module.exports = {
     }
   }`,
   githubApiVariables: {
-    number_of_repos: 12,
+    number_of_repos: 24,
   }, 
   SiteSocialLinks: {
-    twitter: 'https://twitter.com/AbdaliDahir',
-    github: 'https://github.com/AbdaliDahir',
-    linkedin: 'https://www.linkedin.com/in/abdelali-dahir-0b5344111/',
+    github: 'https://github.com/owencraston',
+    linkedin: 'https://www.linkedin.com/in/owencraston/',
   },
   SiteAddress: {
-    city: 'Casablanca',
-    region: 'CurvaSud',
-    country: 'Morocco',
+    city: 'Toronto',
+    region: 'Ontario',
+    country: 'Canada',
     zipCode: 'ZipCode',
   },
   SiteContact: {
-    email: 'abdali.dahir@gmail.com',
-    phone: 'phone number',
+    email: 'owengc12@gmail.com',
   },
-  SiteCopyright: '2020',
+  SiteCopyright: '2021',
 };
