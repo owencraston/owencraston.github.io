@@ -39,7 +39,7 @@ module.exports = {
     }
   }`,
   githubApiVariables: {
-    number_of_repos: 24,
+    number_of_repos: 4,
   }, 
   SiteSocialLinks: {
     github: 'https://github.com/owencraston',
