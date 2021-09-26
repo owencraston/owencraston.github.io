@@ -9,7 +9,7 @@ import {ContainerLayout} from '../../components/common'
 
 
 const portfolioWork = ({data, pageContext, location}) => {
-  const work = data.markdownRemark
+  const work = data.markdownRemark ? data.markdownRemark : []
   const siteTitle = data.site.siteMetadata.title
 
   return (
