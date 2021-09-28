@@ -6,20 +6,20 @@ import {Tag} from '../common'
 
 
 const CategoriesTags = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      allMarkdownRemark(limit: 2000) {
-        group(field: frontmatter___categories) {
-          fieldValue
-          totalCount
-        }
-      }
-    }
-  `);
+  // const data = useStaticQuery(graphql`
+  //   query {
+  //     allMarkdownRemark(limit: 2000) {
+  //       group(field: frontmatter___categories) {
+  //         fieldValue
+  //         totalCount
+  //       }
+  //     }
+  //   }
+  // `);
 
   return (
   <div>
-    <div>
+    {/* <div>
       <div>
         {data.allMarkdownRemark.group.map(tag => (
           <Tag as={Link} key={tag.fieldValue} to={`/${kebabCase(tag.fieldValue)}/`} activeClassName="active">
@@ -27,7 +27,7 @@ const CategoriesTags = () => {
           </Tag>
         ))}
       </div>
-    </div>
+    </div> */}
   </div>
 )}
 
