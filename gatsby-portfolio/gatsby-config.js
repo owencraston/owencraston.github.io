@@ -3,6 +3,7 @@ require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 module.exports = {
+  pathPrefix: "/owencraston.github.io",
   siteMetadata: {
     title: data.SiteTitle,
     description: data.SiteDescription,
@@ -18,13 +19,6 @@ module.exports = {
       options: {
         name: `blog`,
         path: `${__dirname}/src/data/blog`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `portfolio`,
-        path: `${__dirname}/src/data/works`,
       },
     },
     {
