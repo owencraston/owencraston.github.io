@@ -3,7 +3,6 @@ require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 module.exports = {
-  pathPrefix: "/owencraston.github.io",
   siteMetadata: {
     title: data.SiteTitle,
     description: data.SiteDescription,
