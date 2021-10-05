@@ -5,42 +5,6 @@ module.exports = {
   SiteAuthor: 'Owen Craston',
   SiteDescription: 'Developer',
   defaultDescription: 'Developer', 
-  githubApiQuery: `query ($number_of_repos: Int!) {
-    viewer {
-      name
-      avatarUrl
-      isHireable
-      resourcePath
-      repositories(last: $number_of_repos, privacy: PUBLIC, orderBy: { field: STARGAZERS, direction:ASC } ) {
-        nodes {
-          name
-          description
-          homepageUrl
-          forkCount
-          createdAt
-          updatedAt
-          resourcePath
-          languages(last: 1, orderBy: { field: SIZE, direction:ASC } ) {
-            edges {
-              node {
-                name
-                color
-              }
-            }
-          }
-          licenseInfo {
-            name
-          }
-          stargazers {
-            totalCount
-          }
-        }
-      }
-    }
-  }`,
-  githubApiVariables: {
-    number_of_repos: 4,
-  }, 
   SiteSocialLinks: {
     github: 'https://github.com/owencraston',
     linkedin: 'https://www.linkedin.com/in/owencraston/',
