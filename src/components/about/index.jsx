@@ -26,7 +26,7 @@ const About = () => {
             </div> 
             <div>
               <Title> Hello, I’m Owen </Title>
-              <Text> Computer science graduate with a passion for all things technology. I have experience working in many different domains and am currently working in the mobile space. I hope to bring as much positive impact to this world through my skillset and grow to become a well rounded technologist.</Text>
+              <Text> I am a computer science graduate with a passion for all things technology. I have experience working in many different domains and am currently working in the mobile space. I hope to bring as much positive impact to this world through my skillset and grow to become a well rounded technologist.</Text>
               <ResumeButton href="resume.pdf" target="_blank"> Download resume </ResumeButton>
             </div>
           </AboutSection>
