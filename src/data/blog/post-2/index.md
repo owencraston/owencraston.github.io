@@ -54,12 +54,14 @@ You can create these arrays by passing the values of the array, the size of the 
 	var arr6 =  IntArray(5)  { it -> it  }
 ```
 
- ### Access
+ ### Array Methods
  
 | Action                | Method                  | Time Complexity | Alternative          |
 |-----------------------|-------------------------|---------|----------------------|
 | Access value at index | array.get(index)        | O(1)    | array[index]         |
 | Set value at index    | array.set(index, value) | O(1)    | array[index] = value |
+| Sort array in place by natural order    | array.sort() | O(nlogn)    | |
+| Sort array in place in reverse order    | array.sortDescending()| O(nlogn)    | |
 
 ## Lists
 Similarly to the [Java list](https://docs.oracle.com/javase/8/docs/api/java/util/List.html), the [Kotlin List](https://kotlinlang.org/docs/collections-overview.html#list) is an interface that allows you to store elements in a specified order with indexed access to these elements. It also allows for the growing and shrinking of the list (if the list is mutable). The default implementation of `List` in Kotlin is an [ArrayList](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/) but others are available. 
@@ -91,5 +93,7 @@ val numbers = mutableListOf(1, 2, 3, 4)
 | return sorted list by natural order                                                                                                                         | val s = list.sorted()                                                                   | O(nlogn)                                                                                                                         |
 | sort list in place in descending order                                                                                                                      | list.sortByDescending{ it }                                                             | O(nlogn)                                                                                                                         |
 | return sorted list in descending order                                                                                                                      | val s = list.sortedByDescending{ it }                                                   | O(nlogn)                                                                                                                         |
-| sort list in place according to its natural order based on the returned property of the expression. This can be used to sort objects by a certain property. | val values = mutableListOf(1 to "a", 2 to "b") values.sortBy { it.second }              | O(nlogn)                                                                                                                         |
+| sort list in place according to its natural order based on the returned property of the expression. This can be used to sort objects by a certain property. | val values = mutableListOf(1 to "a", 2 to "b")  values.sortBy { it.second }             | O(nlogn)                                                                                                                         |
 | return sorted list according to its natural order based on the returned property of the expression. This can be used to sort objects by a certain property. | val values = mutableListOf(1 to "a", 2 to "b") val sorted = values.sortBy { it.second } | O(nlogn)                                                                                                                         |
+| Return a read only view of a portion of a list from starting index (inclusive) until end index (exclusive)                                                  | val list =  listOf(1, 2, 3, 4, 5) val s = list.subList(2, 4) // [3, 4]                  | O(1) since its backed by the source array                                                                                        |
+| Return list as an array                                                                                                                                     | val arr = list.toTypedArray()                                                                | O(n)                                                                                                                             |
