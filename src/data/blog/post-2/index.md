@@ -99,7 +99,7 @@ val numbers = mutableListOf(1, 2, 3, 4)
 | Return list as an array                                                                                                                                     | val arr = list.toTypedArray()                                                                | O(n)                                                                                                                             |
 
 ## Linked List
-This data structure is rarely used and for this reason Kotlin has opted to not implement it. [Here](https://discuss.kotlinlang.org/t/why-kotlin-does-not-provide-linkedlist-implementation/15991) is a thread on why they opted to not support it natively but you are still able to achieve this functionality using the [Java LinkedList](https://docs.oracle.com/javase/7/docs/api/java/util/LinkedList.html). 
+This data structure is rarely used and for this reason Kotlin has opted to not implement it. [Here](https://discuss.kotlinlang.org/t/why-kotlin-does-not-provide-linkedlist-implementation/15991) is a thread on why they opted to not support it natively but you are still able to achieve this functionality using the [Java LinkedList](https://docs.oracle.com/javase/7/docs/api/java/util/LinkedList.html). It is worth noting that this class is a [doubly linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 
 ### Creating a Linked List
 By importing `import java.util.LinkedList` you are able to instantiate it the way you would any other class.
@@ -113,11 +113,12 @@ linkedList.add("Parrot")
 println(linkedList) // [Dog, Cat, Lion, Parrot]
 ```
 ### Linked List Methods and Runtimes
-| Action                                             | Method                         | Runtime |
-|----------------------------------------------------|--------------------------------|---------|
-| Append element to the end of the linked list       | linkedList.add(element)        | O(1)    |
-| Add element at a specific index in the linked list | linkedList.add(index, element) | O(n)    |
-| Get element at index in the linked list            | linkedList.get(index)          | O(n)    |
-| Remove an element from the linked list             | linkedList.remove(element)     | O(1)    |
-| Remove element at a specific index                 | linkedList.removeAt(index)     | O(n)    |
-| Check if a linked list contains an element         | linkedList.contains(element)   | O(n)    |
+| Action                                             | Method                         | Runtime                              |
+|----------------------------------------------------|--------------------------------|--------------------------------------|
+| Append element to the end of the linked list       | linkedList.add(element)        | O(1)                                 |
+| Add element at a specific index in the linked list | linkedList.add(index, element) | O(n)                                 |
+| Get element at index in the linked list            | linkedList.get(index)          | O(n)                                 |
+| Remove an element from the linked list             | linkedList.remove(element)     | O(1)                                 |
+| Remove element at a specific index                 | linkedList.removeAt(index)     | O(n)                                 |
+| Check if a linked list contains an element         | linkedList.contains(element)   | O(n)                                 |
+| Return the linked list in reverse order            | val r = linkedList.reversed()  | O(1) since the list is doubly linked |
