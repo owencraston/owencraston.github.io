@@ -54,7 +54,7 @@ You can create these arrays by passing the values of the array, the size of the 
 	var arr6 =  IntArray(5)  { it -> it  }
 ```
 
- ### Array Methods
+ ### Array Methods and Runtimes
  
 | Action                | Method                  | Time Complexity | Alternative          |
 |-----------------------|-------------------------|---------|----------------------|
@@ -75,7 +75,7 @@ val numbers = listOf("one", "two", "three", "four")
 ```kotlin
 val numbers = mutableListOf(1, 2, 3, 4)
 ```
-### List Methods
+### List Methods and Runtimes
 | Action                                                                                                                                                      | Method                                                                                  | Runtime                                                                                                                          |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
 | Get the size of the list                                                                                                                                    | list.size                                                                               | O(1)                                                                                                                             |
@@ -97,3 +97,27 @@ val numbers = mutableListOf(1, 2, 3, 4)
 | return sorted list according to its natural order based on the returned property of the expression. This can be used to sort objects by a certain property. | val values = mutableListOf(1 to "a", 2 to "b") val sorted = values.sortBy { it.second } | O(nlogn)                                                                                                                         |
 | Return a read only view of a portion of a list from starting index (inclusive) until end index (exclusive)                                                  | val list =  listOf(1, 2, 3, 4, 5) val s = list.subList(2, 4) // [3, 4]                  | O(1) since its backed by the source array                                                                                        |
 | Return list as an array                                                                                                                                     | val arr = list.toTypedArray()                                                                | O(n)                                                                                                                             |
+
+## Linked List
+This data structure is rarely used and for this reason Kotlin has opted to not implement it. [Here](https://discuss.kotlinlang.org/t/why-kotlin-does-not-provide-linkedlist-implementation/15991) is a thread on why they opted to not support it natively but you are still able to achieve this functionality using the [Java LinkedList](https://docs.oracle.com/javase/7/docs/api/java/util/LinkedList.html). 
+
+### Creating a Linked List
+By importing `import java.util.LinkedList` you are able to instantiate it the way you would any other class.
+```kotlin
+import java.util.LinkedList
+val list = listOf("Dog", "Cat", "Lion")
+val linkedList =  LinkedList<String>()
+linkedList.addAll(list) 
+println(linkedList) // [Dog, Cat, Lion]
+linkedList.add("Parrot")
+println(linkedList) // [Dog, Cat, Lion, Parrot]
+```
+### Linked List Methods and Runtimes
+| Action                                             | Method                         | Runtime |
+|----------------------------------------------------|--------------------------------|---------|
+| Append element to the end of the linked list       | linkedList.add(element)        | O(1)    |
+| Add element at a specific index in the linked list | linkedList.add(index, element) | O(n)    |
+| Get element at index in the linked list            | linkedList.get(index)          | O(n)    |
+| Remove an element from the linked list             | linkedList.remove(element)     | O(1)    |
+| Remove element at a specific index                 | linkedList.removeAt(index)     | O(n)    |
+| Check if a linked list contains an element         | linkedList.contains(element)   | O(n)    |
