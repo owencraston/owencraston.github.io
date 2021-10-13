@@ -225,7 +225,7 @@ println(max2) // 4
 println(maxHeap) // [4, 3, 0, 1, 2]
 ```
 
-### Heap (PriorityQueue) methods and Runtimes
+### Heap (PriorityQueue) Methods and Runtimes
 | Action                                                             | Method                 | Runtime                                           |
 |--------------------------------------------------------------------|------------------------|---------------------------------------------------|
 | Get the size of the heap                                           | heap.size              | O(1)                                              |
@@ -235,3 +235,37 @@ println(maxHeap) // [4, 3, 0, 1, 2]
 | Return the root of the heap (min/max)                              | heap.peek()            | O(1) as no reconstruction is needed               |
 | Remove a specific element from the heap                            | heap.remove(element)   | O(n)                                              |
 | Check if an element is present in the heap                         | heap.contains(element) | O(n)                                              |
+
+## Stacks
+A [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) is a `last in, first out`, or `LIFO` for short, data structure. You can think of this as a stack of plates where the first plate you grab is going to be the top most plate (the one that was added last). Again, Kotlin does not provide an implementation of this out of the box for us so we must rely on our older brother Java. Java has a [Stack](https://docs.oracle.com/javase/7/docs/api/java/util/Stack.html) class but as per the documentation, it is recommended to use an [ArrayDeque](https://docs.oracle.com/javase/7/docs/api/java/util/ArrayDeque.html) for all you stack/queue needs. For more information on this decision you can check out [this thread](https://stackoverflow.com/questions/12524826/why-should-i-use-deque-over-stack). Once you `import java.util.ArrayDeque` you are ready to get started.
+
+### Creating a stack
+We can use ArrayDeque for both `LIFI` and `FIFO` (first in first out) structures but by always pushing/popping from the front of the stack we can get the desired stack behaviour. 
+```kotlin
+import java.util.ArrayDeque
+
+val stack = ArrayDeque<Int>()
+stack.push(1)
+stack.push(2)
+stack.push(3)
+stack.push(4)
+println(stack)           // [4, 3, 2, 1]
+println(stack.isEmpty()) // false
+println(stack.peek())    // 4
+println(stack)           // [4, 3, 2, 1]
+println(stack.pop())     // 4
+println(stack)           // [3, 2, 1]
+stack.push(9)
+println(stack)           // --> [9, 3, 2, 1]
+```
+
+### Stack (ArrayDeque) Methods and Runtimes
+| Action                                                 | Method                | Runtime |
+|--------------------------------------------------------|-----------------------|---------|
+| Get the size of the stack                              | stack.size            | O(1)    |
+| Push element onto the stack                            | stack.push(element)   | O(1)    |
+| Return and remove a the last element from the stack    | stack.pop()           | O(1)    |
+| Return the last element from the stack (do not remove) | stack.peek()          | O(1)    |
+| Remove a specific element from the stack               | stack.remove(element) | O(n)    |
+| Check if the stack is empty                            | stack.isEmpty()       | O(1)    |
+
