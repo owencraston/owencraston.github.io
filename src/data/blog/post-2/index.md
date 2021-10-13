@@ -239,7 +239,7 @@ println(maxHeap) // [4, 3, 0, 1, 2]
 ## Stacks
 A [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) is a `last in, first out`, or `LIFO` for short, data structure. You can think of this as a stack of plates where the first plate you grab is going to be the top most plate (the one that was added last). Again, Kotlin does not provide an implementation of this out of the box for us so we must rely on our older brother Java. Java has a [Stack](https://docs.oracle.com/javase/7/docs/api/java/util/Stack.html) class but as per the documentation, it is recommended to use an [ArrayDeque](https://docs.oracle.com/javase/7/docs/api/java/util/ArrayDeque.html) for all you stack/queue needs. For more information on this decision you can check out [this thread](https://stackoverflow.com/questions/12524826/why-should-i-use-deque-over-stack). Once you `import java.util.ArrayDeque` you are ready to get started.
 
-### Creating a stack
+### Creating a Stack
 We can use ArrayDeque for both `LIFI` and `FIFO` (first in first out) structures but by always pushing/popping from the front of the stack we can get the desired stack behaviour. 
 ```kotlin
 import java.util.ArrayDeque
@@ -268,4 +268,41 @@ println(stack)           // --> [9, 3, 2, 1]
 | Return the last element from the stack (do not remove) | stack.peek()          | O(1)    |
 | Remove a specific element from the stack               | stack.remove(element) | O(n)    |
 | Check if the stack is empty                            | stack.isEmpty()       | O(1)    |
+
+## Queue
+A queue is a `first in first out` or `FIFO` for short, data structure. You can think of a queue as your average lineup to get into a concert. The earlier you get there the earlier you'll get in. [Queue](https://docs.oracle.com/javase/8/docs/api/java/util/Queue.html) is an interface that can be implemented by either and [ArrayDeque](https://docs.oracle.com/javase/7/docs/api/java/util/ArrayDeque.html), [PriorityQueue](https://docs.oracle.com/javase/8/docs/api/java/util/PriorityQueue.html) or [LinkedList](https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html) (there are more options but these are by far the most common). 
+
+### Creating a Queue
+Since PriorityQueue will add extra functionality we don't need (see heap section above) and the LinkedList is not very cache friendly it is advised to use `ArrayDeque` to implement a queue. To get started you will need to import `import java.util.Queue` and `import java.util.ArrayDeque`.
+
+```kotlin
+import java.util.ArrayDeque
+import java.util.Queue
+
+val queue: Queue<Int> = ArrayDeque<Int>()
+queue.add(1)
+queue.add(2)
+queue.add(3)
+queue.add(4)
+println(queue) // [1, 2, 3, 4]    
+println(queue.isEmpty()) // false
+println(queue.peek()) // 1
+println(queue) // [1, 2, 3, 4]      
+println(queue.poll()) // 1  
+println(queue) // [2, 3, 4]
+queue.add(9) 
+println(queue) // [2, 3, 4, 9]
+```
+by implementing the interface `Queue` we no longer have access to the methods `push` and `pop` like we did in the `stack` example above.
+
+### Queue Methods and Runtimes
+| Action                                                  | Method                                     | Runtime |
+|---------------------------------------------------------|--------------------------------------------|---------|
+| Get the size of the queue                               | queue.size                                 | O(1)    |
+| Add element to the queue                                | queue.add(element) or queue.offer(element) | O(1)    |
+| Return and remove a the first element from the queue    | queue.poll()                               | O(1)    |
+| Return the first element from the queue (do not remove) | queue.peek()                               | O(1)    |
+| Remove a specific element from the queue                | queue.remove(element)                      | O(n)    |
+| Check if the stack is empty                             | queue.isEmpty()                            | O(1)    |
+
 
