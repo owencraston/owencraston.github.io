@@ -305,4 +305,25 @@ by implementing the interface `Queue` we no longer have access to the methods `p
 | Remove a specific element from the queue                | queue.remove(element)                      | O(n)    |
 | Check if the stack is empty                             | queue.isEmpty()                            | O(1)    |
 
+## Undirected Graphs
+There is no default Graph implementation in Kotlin however you can easily create one using a [HashMap](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-map/) of [HashSets](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-set/). Essentially the adjacency list is stored in a HashMap, which holds a HashSet of nodes.
+
+### Creating a Graph
+```kotlin
+class Graph<T> {
+    val adjacencyMap: HashMap<T, HashSet<T>> = HashMap()
+    fun addEdge(sourceVertex: T, destinationVertex: T) {
+        // Add edge to source vertex / node.
+        adjacencyMap
+            .computeIfAbsent(sourceVertex) { HashSet() }
+            .add(destinationVertex)
+        // Add edge to destination vertex / node.
+        adjacencyMap
+            .computeIfAbsent(destinationVertex) { HashSet() }
+            .add(sourceVertex)
+    }
+}
+```
+The `computeIfAbsent` will create the edge if it is not present, and add the vertex to that edge. Since we are using maps/sets behind the scenes, our runtime for adding an edge remains constant with `O(1)` insertion.
+
 
