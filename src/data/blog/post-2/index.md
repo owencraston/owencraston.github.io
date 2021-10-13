@@ -182,3 +182,56 @@ println(numsMap) // {two=2, three=3, five=5}
 | Remove an entry from the map    | myMap.remove(key)          | O(1)    |                                      |
 | Check if map contains a key     | myMap.contains(key)        | O(1)    | myMap.contains(key).let {...}        |
 | Check if a map contains a value | myMap.containsValue(value) | O(n)    | myMap.containsValue(value).let {...} |
+
+## Heap
+[Heaps](https://en.wikipedia.org/wiki/Heap_(data_structure)) are great! There are generally two types of heaps. A min heap which stores the minimum element at the root of the tree, and a max heap which stores the largest value at the root. In Kotlin we can leverage the [PriorityQueue](https://docs.oracle.com/javase/7/docs/api/java/util/PriorityQueue.html)  to create this data structure. 
+
+### Creating a Min Heap with a Priority Queue
+The default implementation of a PriorityQueue actually gives us the min heap functionality. Since Kotlin does not support this out of the box you will need to `import java.util.PriorityQueue`. Once you've imported PriorityQueue you can declare one like this.
+
+```kotlin
+import java.util.PriorityQueue
+
+val nums = listOf(5, 2, 4, 1, 3)
+val minHeap = PriorityQueue<Int>() // declare a min heap with int values
+minHeap.addAll(nums) // you can add elements of a Collection with addAll assuming they are the same type
+println(minHeap) // [1, 2, 4, 5, 3]
+minHeap.add(0)
+println(minHeap) // [0, 2, 1, 5, 3, 4]
+val min = minHeap.poll() // 0, removes 0 from the heap
+println(minHeap) // [1, 2, 4, 5, 3] since 1 is not the smallest value
+val min2 = minHeap.peek() // returns 1 but does not remove it from the heap
+println(min2) // 1
+println(minHeap) // [1, 2, 4, 5, 3]
+```
+
+### Creating a Max Heap with a PriorityQueue
+To turn our PriorityQueue into a max heap we will need to pass it an instance of [comparator](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparator/). Luckily most of the common comparators you'd want to use can be found [here](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.comparisons/). The one that will enable our max heap functionality is the [compareByDescending](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.comparisons/compare-by-descending.html#comparebydescending)] function. This will tell our PriorityQueue to give the highest priority to the highest value.
+
+```kotlin
+import java.util.PriorityQueue
+
+val nums = listOf(5, 2, 4, 1, 3)
+val maxHeap = PriorityQueue<Int>(compareByDescending{it})
+maxHeap.addAll(nums)
+println(maxHeap) // [5, 3, 4, 1, 2]
+maxHeap.add(0)
+println(maxHeap) // [5, 3, 4, 1, 2, 0]
+val max = maxHeap.poll() // returns and removes 5 from the heap
+println(max) // 5
+println(maxHeap) // [4, 3, 0, 1, 2]
+val max2 = maxHeap.peek()  // returns 4 but does not remove it from the heap
+println(max2) // 4
+println(maxHeap) // [4, 3, 0, 1, 2]
+```
+
+### Heap (PriorityQueue) methods and Runtimes
+| Action                                                             | Method                 | Runtime                                           |
+|--------------------------------------------------------------------|------------------------|---------------------------------------------------|
+| Get the size of the heap                                           | heap.size              | O(1)                                              |
+| Add element to heap                                                | heap.add(element)      | O(logn)                                           |
+| Add a collection of elements to a heap (does not work with arrays) | heap.addAll(list)      | O(nlogn)                                          |
+| Return and remove the root of the heap (min/max value)             | heap.poll()            | O(logn) since we will need to re heapify the heap |
+| Return the root of the heap (min/max)                              | heap.peek()            | O(1) as no reconstruction is needed               |
+| Remove a specific element from the heap                            | heap.remove(element)   | O(n)                                              |
+| Check if an element is present in the heap                         | heap.contains(element) | O(n)                                              |
