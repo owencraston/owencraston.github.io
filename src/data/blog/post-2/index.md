@@ -126,7 +126,7 @@ println(linkedList) // [Dog, Cat, Lion, Parrot]
 | Return the linked list in reverse order            | val r = linkedList.reversed()  | O(1) since the list is doubly linked |
 
 ## Set
-A [set](https://kotlinlang.org/docs/collections-overview.html#set) stores unique elements. Like all collections in Kotlin, we have the [read only set](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/) and the [MutableSet](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/) which offers write access. In some cases the order of a set is not reliable, that is to say that the order of insertion is not maintained. However, the default implementation of a set in Kotlin uses a [LinkedHashSet](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-set/) so the order of insertion is preserved.
+A [Set](https://kotlinlang.org/docs/collections-overview.html#set) stores unique elements. Like all collections in Kotlin, we have the [read only set](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/) and the [MutableSet](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/) which offers write access. In some cases the order of a set is not reliable, that is to say that the order of insertion is not maintained. However, the default implementation of a set in Kotlin uses a [LinkedHashSet](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-set/) so the order of insertion is preserved.
 
 ### Creating a Set
 - A `read only` set can be created using the `setOf` function
@@ -150,3 +150,35 @@ println(mySet2) // [1, 2, 3, 4, 5], notice how 4 was not added twice
 | Add element to the set             | mySet.add(element)      | O(1)    |
 | Remove element from set            | mySet.remove(element)   | O(1)    |
 | Check if a set contains an element | mySet.contains(element) | O(1)    |
+
+## Map
+A [Map](https://kotlinlang.org/docs/collections-overview.html#map) stores key value pairs with unique keys. Values in the map can be stored more than once if they are stored under different keys. Similarly to the set, some implementations of this `interface` do not preserve order however the default implementation of [LinkedHashMap](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-map/) does.
+
+### Creating a Map
+- A `read only` map can be created using the `mapOf` function
+- A map will always have a `type for the key` and a `type for the value` so you need to be mindful of that when explicitly declaring a map
+```kotlin
+val numsMap = mapOf("one" to 1, "two" to 2, "three" to 3) //implicit type declaration
+val numsMap2 = mapOf<String, Int>("one" to 1, "two" to 2, "three" to 3) // explicit type declaration
+// The above will create a map of type <String, Int> with the key/values {one=1, two=2, three=3}
+```
+- A mutable map can be created using the `mutableMapOf` function
+```kotlin
+val numsMap = mutableMapOf("one" to 1, "two" to 2, "three" to 3) //implicit type declaration
+val numsMap2 = mutableMapOf<String, Int>("one" to 1, "two" to 2, "three" to 3) // explicit type 
+println(numsMap) // {one=1, two=2, three=3}
+numsMap.put("five", 5) // add an entry
+println(numsMap) // {one=1, two=2, three=3, five=5}
+println(numsMap.get("three")) // 3
+numsMap.remove("one") // remove an enrty
+println(numsMap) // {two=2, three=3, five=5}
+```
+
+### Map Methods and Runtimes
+| Action                          | Method                     | Runtime | Alternative                          |
+|---------------------------------|----------------------------|---------|--------------------------------------|
+| Get the size of the map         | myMap.size                 | O(1)    |                                      |
+| Add/modify an entry to the map  | myMap.put(key, value)      | O(1)    | myMap[key] = value                   |
+| Remove an entry from the map    | myMap.remove(key)          | O(1)    |                                      |
+| Check if map contains a key     | myMap.contains(key)        | O(1)    | myMap.contains(key).let {...}        |
+| Check if a map contains a value | myMap.containsValue(value) | O(n)    | myMap.containsValue(value).let {...} |
