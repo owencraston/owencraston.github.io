@@ -69,11 +69,13 @@ Similarly to the [Java list](https://docs.oracle.com/javase/8/docs/api/java/util
 ### Creating A List
 - A `read only` list can be created using the `listOf()` function.
 ```kotlin
-val numbers = listOf("one", "two", "three", "four")
+val numbers = listOf("one", "two", "three", "four") //implicit type declaration
+val numbers2 = listOf<String>("one", "two", "three", "four") // explicit type declaration
 ```
 - A mutable list can be created using `mutableListOf()`
 ```kotlin
-val numbers = mutableListOf(1, 2, 3, 4)
+val numbers = mutableListOf(1, 2, 3, 4) //implicit type declaration
+val numbers2 = mutableListOf<Int>(1, 2, 3, 4) // explicit type declaration
 ```
 ### List Methods and Runtimes
 | Action                                                                                                                                                      | Method                                                                                  | Runtime                                                                                                                          |
@@ -122,3 +124,29 @@ println(linkedList) // [Dog, Cat, Lion, Parrot]
 | Remove element at a specific index                 | linkedList.removeAt(index)     | O(n)                                 |
 | Check if a linked list contains an element         | linkedList.contains(element)   | O(n)                                 |
 | Return the linked list in reverse order            | val r = linkedList.reversed()  | O(1) since the list is doubly linked |
+
+## Set
+A [set](https://kotlinlang.org/docs/collections-overview.html#set) stores unique elements. Like all collections in Kotlin, we have the [read only set](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/) and the [MutableSet](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/) which offers write access. In some cases the order of a set is not reliable, that is to say that the order of insertion is not maintained. However, the default implementation of a set in Kotlin uses a [LinkedHashSet](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-set/) so the order of insertion is preserved.
+
+### Creating a Set
+- A `read only` set can be created using the `setOf` function
+```kotlin
+val mySet = setOf(1, 2, 3, 4) //implicit type declaration
+val mySet2 = setOf<Int>(1, 2, 3, 4) // explicit type declaration
+```
+- A mutable set can be created using the `mutableSetOf` function
+```kotlin
+val mySet = mutableSetOf(1, 2, 3, 4) //implicit type declaration
+val mySet2 = mutableSetOf<Int>(1, 2, 3, 4) // explicit type declaration
+mySet.add(5)
+mySet.add(3)
+println(mySet2) // [1, 2, 3, 4, 5], notice how 4 was not added twice
+```
+
+### Set Methods and Runtimes
+| Action                             | Method                  | Runtime |
+|------------------------------------|-------------------------|---------|
+| Get the size of the set            | mySet.size              | O(1)    |
+| Add element to the set             | mySet.add(element)      | O(1)    |
+| Remove element from set            | mySet.remove(element)   | O(1)    |
+| Check if a set contains an element | mySet.contains(element) | O(1)    |
