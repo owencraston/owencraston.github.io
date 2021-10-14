@@ -1,5 +1,5 @@
 {
     "componentChunkName": "component---cache-dev-404-page-js",
     "path": "/dev-404-page/",
-    "result": {"data":{"allSiteFunction":{"nodes":[]},"allSitePage":{"nodes":[{"path":"/post-1/"},{"path":"/about-me/"},{"path":"/404.html"},{"path":"/404/"},{"path":"/blog/"},{"path":"/"}]}},"pageContext":{}},
+    "result": {"data":{"allSiteFunction":{"nodes":[]},"allSitePage":{"nodes":[{"path":"/post-2/"},{"path":"/about-me/"},{"path":"/computer-science/"},{"path":"/data-structures/"},{"path":"/java/"},{"path":"/kotlin/"},{"path":"/post-1/"},{"path":"/404.html"},{"path":"/404/"},{"path":"/blog/"},{"path":"/"}]}},"pageContext":{}},
     "staticQueryHashes": []}

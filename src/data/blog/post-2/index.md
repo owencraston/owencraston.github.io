@@ -1,3 +1,13 @@
+---
+title: Common Data Structures in Kotlin
+date: "2021-10-14T23:46:37.121Z"
+image: './kotlin.webp'
+imageCredit: https://unsplash.com/photos/azJJSiwWW90
+time: 10
+categories: ['kotlin', 'data structures', 'computer science', 'java']
+description: "An overview of common data structures, how to use them in Kotlin, and all of their time complexities." 
+---
+
 # Common Data Structures in Kotlin
 Recently I have been using a lot more data structures in Kotlin but found there was a lack of information for `Kotlin` vs its older brother `Java`. Here I have tried to compile a list of common data structures with their runtimes and syntax in Kotlin. 
 It's worth noting that since `Kotlin is backwards compatible with Java`, you may use all the [collections you are used to in Java](https://docs.oracle.com/javase/7/docs/api/java/util/Collections.html). The main difference between [Kotlin collections](https://kotlinlang.org/docs/collections-overview.html) and its Java counterpart is the concept of a [mutable collection](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-collection/). `Immutable collections are read only` where as the mutable collections allow for adding, removing and updating elements in the collection. Since `mutable` collections are inherently ...mutable... you do not need to instantiate them with `var` as the reference will not be changing, just the contents of the collection. 
