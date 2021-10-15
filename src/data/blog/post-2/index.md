@@ -9,11 +9,11 @@ description: "An overview of common data structures, how to use them in Kotlin, 
 ---
 
 # Common Data Structures in Kotlin
-Recently I have been using a lot more data structures in Kotlin but found there was a lack of information for `Kotlin` vs its older brother `Java`. Here I have tried to compile a list of common data structures with their runtimes and syntax in Kotlin. 
-It's worth noting that since `Kotlin is backwards compatible with Java`, you may use all the [collections you are used to in Java](https://docs.oracle.com/javase/7/docs/api/java/util/Collections.html). The main difference between [Kotlin collections](https://kotlinlang.org/docs/collections-overview.html) and its Java counterpart is the concept of a [mutable collection](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-collection/). `Immutable collections are read only` where as the mutable collections allow for adding, removing and updating elements in the collection. Since `mutable` collections are inherently ...mutable... you do not need to instantiate them with `var` as the reference will not be changing, just the contents of the collection. 
+Recently, I have been using a lot more data structures in Kotlin but found there was a lack of information for `Kotlin` vs its older brother, `Java`. Here, I have tried to compile a list of common data structures with their runtimes and syntax in Kotlin. 
+It's worth noting that because `Kotlin is backwards compatible with Java`, you may use all the [collections you are used to in Java](https://docs.oracle.com/javase/7/docs/api/java/util/Collections.html). The main difference between [Kotlin collections](https://kotlinlang.org/docs/collections-overview.html) and its Java counterpart, is the concept of a [mutable collection](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-collection/). `Immutable collections are read only`, where as the mutable collections allow for adding, removing and updating elements in the collection. Since `mutable` collections are inherently ...mutable... you do not need to instantiate them with `var` as the reference will not be changing - only the contents of the collection will change. 
 
 ## Arrays
-[Arrays in Kotlin](https://kotlinlang.org/docs/basic-types.html#arrays) are a primitive data structure that are fixed in size and allow for getting and setting values in constant time.
+[Arrays in Kotlin](https://kotlinlang.org/docs/basic-types.html#arrays) are primitive data structures that are fixed in size, and allow for getting and setting values in constant time.
 
 ### Creating an Array
 - Using `arrayOf`
@@ -136,7 +136,7 @@ println(linkedList) // [Dog, Cat, Lion, Parrot]
 | Return the linked list in reverse order            | val r = linkedList.reversed()  | O(1) since the list is doubly linked |
 
 ## Set
-A [Set](https://kotlinlang.org/docs/collections-overview.html#set) stores unique elements. Like all collections in Kotlin, we have the [read only set](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/) and the [MutableSet](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/) which offers write access. In some cases the order of a set is not reliable, that is to say that the order of insertion is not maintained. However, the default implementation of a set in Kotlin uses a [LinkedHashSet](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-set/) so the order of insertion is preserved.
+A [Set](https://kotlinlang.org/docs/collections-overview.html#set) stores unique elements. Like all collections in Kotlin, we have the [read only set](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/) and the [MutableSet](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/) which offers write access. In some cases, the order of a set is not reliable, that is to say that the order of insertion is not maintained. However, the default implementation of a set in Kotlin uses a [LinkedHashSet](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-set/), meaning the order of insertion is preserved.
 
 ### Creating a Set
 - A `read only` set can be created using the `setOf` function
@@ -162,7 +162,7 @@ println(mySet2) // [1, 2, 3, 4, 5], notice how 4 was not added twice
 | Check if a set contains an element | mySet.contains(element) | O(1)    |
 
 ## Map
-A [Map](https://kotlinlang.org/docs/collections-overview.html#map) stores key value pairs with unique keys. Values in the map can be stored more than once if they are stored under different keys. Similarly to the set, some implementations of this `interface` do not preserve order however the default implementation of [LinkedHashMap](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-map/) does.
+A [Map](https://kotlinlang.org/docs/collections-overview.html#map) stores key value pairs with unique keys. Values in the map can be stored more than once if they are stored under different keys. Similarly to the set, some implementations of this `interface` do not preserve order, however, the default implementation of [LinkedHashMap](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-map/) does.
 
 ### Creating a Map
 - A `read only` map can be created using the `mapOf` function
@@ -194,10 +194,10 @@ println(numsMap) // {two=2, three=3, five=5}
 | Check if a map contains a value | myMap.containsValue(value) | O(n)    | myMap.containsValue(value).let {...} |
 
 ## Heap
-[Heaps](https://en.wikipedia.org/wiki/Heap_(data_structure)) are great! There are generally two types of heaps. A min heap which stores the minimum element at the root of the tree, and a max heap which stores the largest value at the root. In Kotlin we can leverage the [PriorityQueue](https://docs.oracle.com/javase/7/docs/api/java/util/PriorityQueue.html)  to create this data structure. 
+[Heaps](https://en.wikipedia.org/wiki/Heap_(data_structure)) are great! There are generally two types of heaps - a min heap which stores the minimum element at the root of the tree, and a max heap which stores the largest value at the root. In Kotlin, we can leverage the [PriorityQueue](https://docs.oracle.com/javase/7/docs/api/java/util/PriorityQueue.html)  to create this data structure. 
 
 ### Creating a Min Heap with a Priority Queue
-The default implementation of a PriorityQueue actually gives us the min heap functionality. Since Kotlin does not support this out of the box you will need to `import java.util.PriorityQueue`. Once you've imported PriorityQueue you can declare one like this.
+The default implementation of a PriorityQueue actually gives us the min heap functionality. Since Kotlin does not support this out of the box, you will need to `import java.util.PriorityQueue`. Once you've imported PriorityQueue, you can declare one like this.
 
 ```kotlin
 import java.util.PriorityQueue
@@ -215,7 +215,7 @@ println(minHeap) // [1, 2, 4, 5, 3]
 ```
 
 ### Creating a Max Heap with a PriorityQueue
-To turn our PriorityQueue into a max heap we will need to pass it an instance of [comparator](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparator/). Luckily most of the common comparators you'd want to use can be found [here](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.comparisons/). The one that will enable our max heap functionality is the [compareByDescending](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.comparisons/compare-by-descending.html#comparebydescending)] function. This will tell our PriorityQueue to give the highest priority to the highest value.
+To turn our PriorityQueue into a max heap, we will need to pass it an instance of [comparator](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparator/). Luckily most of the common comparators you'd want to use can be found [here](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.comparisons/). The one that will enable our max heap functionality is the [compareByDescending](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.comparisons/compare-by-descending.html#comparebydescending) function. This will tell our PriorityQueue to give the highest priority to the highest value.
 
 ```kotlin
 import java.util.PriorityQueue
@@ -245,12 +245,13 @@ println(maxHeap) // [4, 3, 0, 1, 2]
 | Check if an element is present in the heap                         | heap.contains(element) | O(n)                                              |
 
 ## Stacks
-A [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) is a `last in, first out`, or `LIFO` for short, data structure. You can think of this as a stack of plates where the first plate you grab is going to be the top most plate (the one that was added last). Again, Kotlin does not provide an implementation of this out of the box for us so we must rely on our older brother Java. Java has a [Stack](https://docs.oracle.com/javase/7/docs/api/java/util/Stack.html) class but as per the documentation, it is recommended to use an [ArrayDeque](https://docs.oracle.com/javase/7/docs/api/java/util/ArrayDeque.html) for all you stack/queue needs. For more information on this decision you can check out [this thread](https://stackoverflow.com/questions/12524826/why-should-i-use-deque-over-stack). Once you `import java.util.ArrayDeque` you are ready to get started.
+A [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) is a `last in, first out`, or `LIFO` for short, data structure. You can think of this as a stack of plates, where the first plate you grab is going to be the top most plate (the one that was added last). Again, Kotlin does not provide an implementation of this out of the box for us, so we must rely on our older brother Java. Java has a [Stack](https://docs.oracle.com/javase/7/docs/api/java/util/Stack.html) class but as per the documentation, it is recommended to use an [ArrayDeque](https://docs.oracle.com/javase/7/docs/api/java/util/ArrayDeque.html) for all you stack/queue needs. For more information on this decision you can check out [this thread](https://stackoverflow.com/questions/12524826/why-should-i-use-deque-over-stack). Once you `import java.util.ArrayDeque` you are ready to get started.
 
 ### Creating a Stack
-We can use ArrayDeque for both `LIFI` and `FIFO` (first in first out) structures but by always pushing/popping from the front of the stack we can get the desired stack behaviour. 
+We can use ArrayDeque for both `LIFI` and `FIFO` (first in first out) structures, but by always pushing/popping from the front of the stack, we can get the desired stack behaviour. 
 ```kotlin
 import java.util.ArrayDeque
+
 val stack = ArrayDeque<Int>()
 stack.push(1)
 stack.push(2)
@@ -277,14 +278,15 @@ println(stack)           // --> [9, 3, 2, 1]
 | Check if the stack is empty                            | stack.isEmpty()       | O(1)    |
 
 ## Queue
-A queue is a `first in first out` or `FIFO` for short, data structure. You can think of a queue as your average lineup to get into a concert. The earlier you get there the earlier you'll get in. [Queue](https://docs.oracle.com/javase/8/docs/api/java/util/Queue.html) is an interface that can be implemented by either and [ArrayDeque](https://docs.oracle.com/javase/7/docs/api/java/util/ArrayDeque.html), [PriorityQueue](https://docs.oracle.com/javase/8/docs/api/java/util/PriorityQueue.html) or [LinkedList](https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html) (there are more options but these are by far the most common). 
+A queue is a `first in first out` or `FIFO` for short, data structure. You can think of a queue as your average lineup to get into a concert. The earlier you get there the earlier you'll get in. [Queue](https://docs.oracle.com/javase/8/docs/api/java/util/Queue.html) is an interface that can be implemented by either an [ArrayDeque](https://docs.oracle.com/javase/7/docs/api/java/util/ArrayDeque.html), [PriorityQueue](https://docs.oracle.com/javase/8/docs/api/java/util/PriorityQueue.html) or [LinkedList](https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html) (there are more options but these are by far the most common). 
 
 ### Creating a Queue
-Since PriorityQueue will add extra functionality we don't need (see heap section above) and the LinkedList is not very cache friendly it is advised to use `ArrayDeque` to implement a queue. To get started you will need to import `import java.util.Queue` and `import java.util.ArrayDeque`.
+Since PriorityQueue will add extra functionality we don't need (see heap section above), and the LinkedList is not very cache friendly, it is advised to use `ArrayDeque` to implement a queue. To get started you will need to import `import java.util.Queue` and `import java.util.ArrayDeque`.
 
 ```kotlin
 import java.util.ArrayDeque
 import java.util.Queue
+
 val queue: Queue<Int> = ArrayDeque<Int>()
 queue.add(1)
 queue.add(2)
@@ -299,7 +301,7 @@ println(queue) // [2, 3, 4]
 queue.add(9) 
 println(queue) // [2, 3, 4, 9]
 ```
-by implementing the interface `Queue` we no longer have access to the methods `push` and `pop` like we did in the `stack` example above.
+by implementing the interface `Queue`, we no longer have access to the methods `push` and `pop` like we did in the `stack` example above.
 
 ### Queue Methods and Runtimes
 | Action                                                  | Method                                     | Runtime |
@@ -312,7 +314,7 @@ by implementing the interface `Queue` we no longer have access to the methods `p
 | Check if the stack is empty                             | queue.isEmpty()                            | O(1)    |
 
 ## Undirected Graphs
-There is no default Graph implementation in Kotlin however you can easily create one using a [HashMap](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-map/) of [HashSets](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-set/). Essentially the adjacency list is stored in a HashMap, which holds a HashSet of nodes.
+There is no default Graph implementation in Kotlin, however, you can easily create one using a [HashMap](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-map/) of [HashSets](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-set/). Essentially, the adjacency list is stored in a HashMap, which holds a HashSet of nodes.
 
 ### Creating a Graph
 ```kotlin
