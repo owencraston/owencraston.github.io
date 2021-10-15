@@ -201,7 +201,6 @@ The default implementation of a PriorityQueue actually gives the min heap functi
 
 ```kotlin
 import java.util.PriorityQueue
-
 val nums = listOf(5, 2, 4, 1, 3)
 val minHeap = PriorityQueue<Int>() // declare a min heap with int values
 minHeap.addAll(nums) // add elements of a Collection with addAll assuming they are the same type
@@ -252,7 +251,6 @@ A [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) is a `last i
 ### ArrayDeque can be used for both `LIFI` and `FIFO` (first-in & first-out) structures. By always pushing/popping from the front of the stack it's possible to achieve the desired stack behaviour. 
 ```kotlin
 import java.util.ArrayDeque
-
 val stack = ArrayDeque<Int>()
 stack.push(1)
 stack.push(2)
