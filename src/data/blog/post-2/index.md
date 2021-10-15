@@ -1,6 +1,6 @@
 ---
 title: Common Data Structures in Kotlin
-date: "2021-10-14T23:46:37.121Z"
+date: "2021-10-15T23:46:37.121Z"
 image: './kotlin.webp'
 imageCredit: https://unsplash.com/photos/azJJSiwWW90
 time: 15
