@@ -65,7 +65,7 @@ You can create these arrays by passing the values of the array, the size of the 
 ```
 
  ### Array Methods and Runtimes
- 
+
 | Action                | Method                  | Time Complexity | Alternative          |
 |-----------------------|-------------------------|---------|----------------------|
 | Access value at index | array.get(index)        | O(1)    | array[index]         |
@@ -201,7 +201,6 @@ The default implementation of a PriorityQueue actually gives us the min heap fun
 
 ```kotlin
 import java.util.PriorityQueue
-
 val nums = listOf(5, 2, 4, 1, 3)
 val minHeap = PriorityQueue<Int>() // declare a min heap with int values
 minHeap.addAll(nums) // you can add elements of a Collection with addAll assuming they are the same type
@@ -220,7 +219,6 @@ To turn our PriorityQueue into a max heap we will need to pass it an instance of
 
 ```kotlin
 import java.util.PriorityQueue
-
 val nums = listOf(5, 2, 4, 1, 3)
 val maxHeap = PriorityQueue<Int>(compareByDescending{it})
 maxHeap.addAll(nums)
@@ -253,7 +251,6 @@ A [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) is a `last i
 We can use ArrayDeque for both `LIFI` and `FIFO` (first in first out) structures but by always pushing/popping from the front of the stack we can get the desired stack behaviour. 
 ```kotlin
 import java.util.ArrayDeque
-
 val stack = ArrayDeque<Int>()
 stack.push(1)
 stack.push(2)
@@ -288,7 +285,6 @@ Since PriorityQueue will add extra functionality we don't need (see heap section
 ```kotlin
 import java.util.ArrayDeque
 import java.util.Queue
-
 val queue: Queue<Int> = ArrayDeque<Int>()
 queue.add(1)
 queue.add(2)
@@ -335,5 +331,6 @@ class Graph<T> {
 }
 ```
 The `computeIfAbsent` will create the edge if it is not present, and add the vertex to that edge. Since we are using maps/sets behind the scenes, our runtime for adding an edge remains constant with `O(1)` insertion.
+
 
 
