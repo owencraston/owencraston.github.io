@@ -7,10 +7,11 @@ import Img from "gatsby-image"
 import {ContainerLayout, WorkPost, Intro, SubTitle, Title, Text, HeaderIntro, SubText, SmallText, UnderLink, ReadMore} from "../components/common"
 import CategoriesTags from '../components/CategoriesTags/categoriesTags';
 import kebabCase from "lodash/kebabCase"
+import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader";
 
 const BlogIndex = ({ data }) => {
   const posts = data.allMarkdownRemark.edges
-  
+  deckDeckGoHighlightElement()
   return (
     <>
       <Layout> 
