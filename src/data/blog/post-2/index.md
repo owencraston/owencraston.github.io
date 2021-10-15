@@ -19,7 +19,7 @@ It's worth noting that because `Kotlin is backwards compatible with Java`, you m
 - Using `arrayOf`
 	-  Here you can pass in the values for the array and the array will be created with the proper size, type and elements
 	- You can also use `arrayOfNulls` to create an array of a given size with all null values
-```Kotlin
+```kotlin
 	// Create an array with values
 	val nums1 = arrayOf(1, 2, 3, 4)   //implicit type declaration
 	val nums2 = arrayOf<Int>(1, 2, 3) //explicit type declaration
@@ -30,7 +30,7 @@ It's worth noting that because `Kotlin is backwards compatible with Java`, you m
 - The constructor takes...
 	- The size of the array
 	- A function that returns the array value given an index 
-```Kotlin
+```kotlin
 	// Creates an Array<Int> with values [0, 1, 2, 3, 4]
 	val nums = Array(5) { i -> i}
 	// Creates an Array<String> with values ["0", "1", "4", "9", "16"]
@@ -48,7 +48,8 @@ Kotlin also provides Array classes for primitives that can offer some nice synta
 - BooleanArray
 
 You can create these arrays by passing the values of the array, the size of the array or the size and a lambda expression.
-```Kotlin
+
+```kotlin
 	// Array of int of size 3 with values [1, 2, 3]
 	var arr1 =  intArrayOf(1, 2, 3)
 	// Array of booleans of size 3 with values [true, false, true]
