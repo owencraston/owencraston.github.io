@@ -251,6 +251,7 @@ A [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) is a `last i
 ### ArrayDeque can be used for both `LIFI` and `FIFO` (first-in & first-out) structures. By always pushing/popping from the front of the stack it's possible to achieve the desired stack behaviour. 
 ```kotlin
 import java.util.ArrayDeque
+
 val stack = ArrayDeque<Int>()
 stack.push(1)
 stack.push(2)
@@ -285,6 +286,7 @@ println(stack)           // --> [9, 3, 2, 1]
 ```kotlin
 import java.util.ArrayDeque
 import java.util.Queue
+
 val queue: Queue<Int> = ArrayDeque<Int>()
 queue.add(1)
 queue.add(2)
