@@ -1,0 +1,714 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style data-href="/styles.1286c2475862fb9bf499.css" data-identity="gatsby-global-css">@font-face{font-family:GT-Walsheim-Pro-Regular;src:url(/static/GT-Walsheim-Pro-Regular-5d003e71616db8f7d61cf05f166176c3.woff2) format("woff2")}@font-face{font-family:GT-Walsheim-Pro-Medium;src:url(/static/GT-Walsheim-Pro-Medium-8a124e761cceac0398789c355d2c354e.woff2) format("woff2")}@font-face{font-family:GT-Walsheim-Pro-Bold;src:url(/static/GT-Walsheim-Pro-Bold-bc09e837049ce08667e17165db847abe.woff2) format("woff2")}</style><meta name="generator" content="Gatsby 3.14.2"/><title data-react-helmet="true">Common Data Structures in Kotlin | Owen Craston</title><meta data-react-helmet="true" name="description" content="An overview of common data structures, how to use them in Kotlin, and all of their time complexities."/><meta data-react-helmet="true" property="og:title" content="Common Data Structures in Kotlin"/><meta data-react-helmet="true" property="og:description" content="An overview of common data structures, how to use them in Kotlin, and all of their time complexities."/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" name="twitter:creator" content="Owen Craston"/><meta data-react-helmet="true" name="twitter:title" content="Common Data Structures in Kotlin"/><meta data-react-helmet="true" name="twitter:description" content="An overview of common data structures, how to use them in Kotlin, and all of their time complexities."/><style data-styled="" data-styled-version="5.3.1">.eVbtIG a{color:#000;font-size:2.3rem;font-family:"GT-Walsheim-Pro-Bold";}/*!sc*/
+@media(max-width:850px){.eVbtIG{display:none;}}/*!sc*/
+data-styled.g1[id="style__NavbarLogo-sc-1kk5mj1-0"]{content:"eVbtIG,"}/*!sc*/
+.AJHle{display:grid;grid-template-columns:1fr 1fr;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}/*!sc*/
+@media(max-width:850px){.AJHle{grid-template-columns:1fr;text-align:center;width:100%;}}/*!sc*/
+data-styled.g2[id="style__NavbarElement-sc-1kk5mj1-1"]{content:"AJHle,"}/*!sc*/
+.daAqMz{padding-left:0;display:grid;grid-template-columns:repeat(4,1fr);list-style:none;}/*!sc*/
+.daAqMz > li a{font-size:1.2rem;color:#232323;padding:.5rem .2rem;margin:0 1rem;-webkit-text-decoration:none;text-decoration:none;vertical-align:middle;}/*!sc*/
+.daAqMz > li a > svg{width:18px;margin-right:5px;}/*!sc*/
+.daAqMz > li a span,.daAqMz > li a svg{display:block;vertical-align:middle;}/*!sc*/
+@media(max-width:850px){.daAqMz > li a{font-size:1rem;}}/*!sc*/
+data-styled.g3[id="style__NavbarList-sc-1kk5mj1-2"]{content:"daAqMz,"}/*!sc*/
+.enLnGW{padding-top:1rem;padding-bottom:8rem;z-index:0;position:relative;text-align:left;}/*!sc*/
+@media(min-width:850px){.enLnGW{background:linear-gradient(to top,#efe9e9,transparent 50%);}}/*!sc*/
+@media(max-width:850px){.enLnGW{padding-bottom:2rem;padding-left:.5rem;padding-right:.5rem;text-align:center;}}/*!sc*/
+.enLnGW .quote{font-size:4rem;font-family:"GT-Walsheim-Pro-Bold";line-height:1.2;color:#ff2d2d;}/*!sc*/
+@media(max-width:850px){.enLnGW .quote{font-size:2rem;}}/*!sc*/
+data-styled.g4[id="style__FooterStyle-sc-l15n7d-0"]{content:"enLnGW,"}/*!sc*/
+.iNMUlF{font-size:1rem;line-height:1.8;-webkit-letter-spacing:2px;-moz-letter-spacing:2px;-ms-letter-spacing:2px;letter-spacing:2px;text-transform:capitalize;margin-bottom:20px;font-family:"GT-Walsheim-Pro-Bold";}/*!sc*/
+data-styled.g5[id="style__SubRight-sc-l15n7d-1"]{content:"iNMUlF,"}/*!sc*/
+.fipVEj{font-size:11px;line-height:1.8;-webkit-letter-spacing:1px;-moz-letter-spacing:1px;-ms-letter-spacing:1px;letter-spacing:1px;text-transform:capitalize;}/*!sc*/
+data-styled.g6[id="style__CopyRight-sc-l15n7d-2"]{content:"fipVEj,"}/*!sc*/
+.dIvSYk{display:grid;grid-template-columns:1fr 1fr;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}/*!sc*/
+@media(max-width:850px){.dIvSYk{grid-template-columns:1fr;}}/*!sc*/
+data-styled.g7[id="style__FooterBody-sc-l15n7d-3"]{content:"dIvSYk,"}/*!sc*/
+.kxhywB{list-style:none;padding-left:0;}/*!sc*/
+@media(max-width:850px){.kxhywB{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}}/*!sc*/
+.kxhywB li{margin-bottom:1.5rem;}/*!sc*/
+data-styled.g8[id="style__FooterSocialMedia-sc-l15n7d-4"]{content:"kxhywB,"}/*!sc*/
+.cpqzkY{padding:1rem 0rem;padding-bottom:.5rem;line-height:1;font-size:1rem;text-transform:capitalize;font-family:"GT-Walsheim-Pro-Bold";color:#ff2d2d;}/*!sc*/
+data-styled.g9[id="style__MediaLink-sc-l15n7d-5"]{content:"cpqzkY,"}/*!sc*/
+.icEeVi{cursor:pointer;margin:10% 0%;font-family:"GT-Walsheim-Pro-Medium";font-size:inherit;text-align:center;-webkit-letter-spacing:3px;-moz-letter-spacing:3px;-ms-letter-spacing:3px;letter-spacing:3px;text-transform:uppercase;-webkit-text-decoration:none;text-decoration:none;border:4px solid #ff2d2d;color:#ff2d2d;background:#fff;outline:none;position:relative;display:inline-block;padding:15px 10px 14px;cursor:pointer;width:auto;min-width:200px;}/*!sc*/
+.icEeVi::after{min-width:200px;position:absolute;width:100%;height:100%;border:4px solid #ff2d2d;background-color:#ff2d2d;left:4px;top:9px;z-index:-1;content:'';-webkit-transition:all 0.5s;transition:all 0.5s;}/*!sc*/
+.icEeVi:hover:after{top:0px;left:-4px;}/*!sc*/
+data-styled.g10[id="buttons__ButtonDefault-sc-5x08bx-0"]{content:"icEeVi,"}/*!sc*/
+.htkSKq{width:96%;margin-left:auto;margin-right:auto;}/*!sc*/
+.htkSKq.wrapper{max-width:65rem;margin:auto;}/*!sc*/
+@media only screen and (min-width:60em){.htkSKq{max-width:75rem;}}/*!sc*/
+data-styled.g13[id="containerLayout__ContainerLayout-sc-25l7nr-0"]{content:"htkSKq,"}/*!sc*/
+@media(min-width:850px){.jRpIVh{background:linear-gradient(to bottom,rgb(239 233 233 / 46%),transparent 22%);}}/*!sc*/
+data-styled.g14[id="mainContent__MainContent-sc-gv3d4z-0"]{content:"jRpIVh,"}/*!sc*/
+*,*::before,*::after{box-sizing:border-box;}/*!sc*/
+html{box-sizing:border-box;-ms-overflow-style:scrollbar;line-height:1.15;-webkit-text-size-adjust:100%;}/*!sc*/
+html body{font-size:14px;font-family:'GT-Walsheim-Pro-Regular';margin:0;}/*!sc*/
+html main{display:block;}/*!sc*/
+html h1{font-size:2em;margin:0.67em 0;}/*!sc*/
+html hr{box-sizing:content-box;height:0;overflow:visible;}/*!sc*/
+html a{background-color:transparent;-webkit-text-decoration:none;text-decoration:none;}/*!sc*/
+html b,html strong{font-weight:bolder;font-family:'GT-Walsheim-Pro-Bold';}/*!sc*/
+html small{font-size:80%;}/*!sc*/
+html sub,html sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}/*!sc*/
+html sub{bottom:-0.25em;}/*!sc*/
+html sup{top:-0.5em;}/*!sc*/
+html img{border-style:none;}/*!sc*/
+html .center{text-align:center;}/*!sc*/
+html button,html input,html optgroup,html select,html textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0;}/*!sc*/
+html button,html input{overflow:visible;}/*!sc*/
+html button,html select{text-transform:none;}/*!sc*/
+html button,html [type="button"],html [type="reset"],html [type="submit"]{-webkit-appearance:button;}/*!sc*/
+html button::-moz-focus-inner,html [type="button"]::-moz-focus-inner,html [type="reset"]::-moz-focus-inner,html [type="submit"]::-moz-focus-inner{border-style:none;padding:0;}/*!sc*/
+html button:-moz-focusring,html [type="button"]:-moz-focusring,html [type="reset"]:-moz-focusring,html [type="submit"]:-moz-focusring{outline:1px dotted ButtonText;}/*!sc*/
+html [hidden]{display:none;}/*!sc*/
+html .text-dark{color:#000;}/*!sc*/
+html .text-primary{color:#ff2d2d;}/*!sc*/
+html .align-middle{vertical-align:middle;}/*!sc*/
+html p{font-size:1.125rem;font-weight:200;line-height:1.8;}/*!sc*/
+.lined-link{display:inline-block;position:relative;padding-top:.5em;padding-bottom:.25em;-webkit-transition:all .2s ease-out;transition:all .2s ease-out;will-change:transform,color;}/*!sc*/
+.lined-link:after{z-index:1;position:absolute;bottom:-1px;left:0;content:"";display:block;width:100%;height:5px;background-color:#ff2d2d;-webkit-transform:scale(0,1);-ms-transform:scale(0,1);transform:scale(0,1);-webkit-transform-origin:100% 50%;-ms-transform-origin:100% 50%;transform-origin:100% 50%;will-change:transform;-webkit-transition:-webkit-transform 0.8s cubic-bezier(0.19,1,0.22,1),-webkit-transform 0.8s cubic-bezier(0.19,1,0.22,1);-webkit-transition:transform 0.8s cubic-bezier(0.19,1,0.22,1),-webkit-transform 0.8s cubic-bezier(0.19,1,0.22,1);transition:transform 0.8s cubic-bezier(0.19,1,0.22,1),-webkit-transform 0.8s cubic-bezier(0.19,1,0.22,1);}/*!sc*/
+.lined-link:hover:after,.lined-link.active:after{background-color:#ff2d2d;-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1);-webkit-transform-origin:0 50%;-ms-transform-origin:0 50%;transform-origin:0 50%;-webkit-transition:-webkit-transform 1s cubic-bezier(0.19,1,0.22,1),background-color 0.2s ease-out,-webkit-transform 1s cubic-bezier(0.19,1,0.22,1);-webkit-transition:transform 1s cubic-bezier(0.19,1,0.22,1),background-color 0.2s ease-out,-webkit-transform 1s cubic-bezier(0.19,1,0.22,1);transition:transform 1s cubic-bezier(0.19,1,0.22,1),background-color 0.2s ease-out,-webkit-transform 1s cubic-bezier(0.19,1,0.22,1);}/*!sc*/
+.error__emoji{width:30vw;}/*!sc*/
+data-styled.g27[id="sc-global-RPezj1"]{content:"sc-global-RPezj1,"}/*!sc*/
+.hTfLtB{padding:8rem 0 4rem 0;text-align:left;}/*!sc*/
+data-styled.g33[id="posts__Intro-sc-4d4syh-0"]{content:"hTfLtB,"}/*!sc*/
+.gqZKMF{font-size:2rem;text-transform:capitalize;font-family:"GT-Walsheim-Pro-Bold";}/*!sc*/
+data-styled.g34[id="posts__Title-sc-4d4syh-1"]{content:"gqZKMF,"}/*!sc*/
+.hNCGIU{margin-bottom:5rem;padding-bottom:1rem;max-width:60rem;margin:auto;text-align:center;}/*!sc*/
+.hNCGIU img[src$="imgresponsive"]{max-width:80%;}/*!sc*/
+data-styled.g35[id="posts__ArticlePost-sc-4d4syh-2"]{content:"hNCGIU,"}/*!sc*/
+.bYRmTJ{font-size:.89rem;padding-right:10px;font-family:"GT-Walsheim-Pro-Regular";}/*!sc*/
+.bYRmTJ > span{padding-left:5px;}/*!sc*/
+data-styled.g36[id="posts__SmallText-sc-4d4syh-3"]{content:"bYRmTJ,"}/*!sc*/
+.BGELl{margin-top:5rem;}/*!sc*/
+.BGELl p{font-size:1.5rem;font-family:"GT-Walsheim-Pro-Medium";}/*!sc*/
+data-styled.g37[id="posts__ArticleBody-sc-4d4syh-4"]{content:"BGELl,"}/*!sc*/
+.jISPpF{display:grid;grid-template-columns:1fr 1fr;grid-column-gap:5rem;grid-row-gap:5rem;list-style:none;padding:0;border-top:4px solid #ff2d2d;border-bottom:4px solid #ff2d2d;}/*!sc*/
+data-styled.g38[id="posts__NaviagtionList-sc-4d4syh-5"]{content:"jISPpF,"}/*!sc*/
+.hrCVWK{padding:2rem 0;}/*!sc*/
+.hrCVWK:last-child{text-align:right;}/*!sc*/
+.hrCVWK a{font-size:1.3rem;font-family:"GT-Walsheim-Pro-Medium";}/*!sc*/
+data-styled.g39[id="posts__NaviagtionLi-sc-4d4syh-6"]{content:"hrCVWK,"}/*!sc*/
+</style><link rel="icon" href="/favicon-32x32.png?v=cd553ebf67339c267c7dbd8c45f7ef1e" type="image/png"/><link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/><meta name="theme-color" content="#000"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=cd553ebf67339c267c7dbd8c45f7ef1e"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=cd553ebf67339c267c7dbd8c45f7ef1e"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=cd553ebf67339c267c7dbd8c45f7ef1e"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=cd553ebf67339c267c7dbd8c45f7ef1e"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=cd553ebf67339c267c7dbd8c45f7ef1e"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=cd553ebf67339c267c7dbd8c45f7ef1e"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=cd553ebf67339c267c7dbd8c45f7ef1e"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=cd553ebf67339c267c7dbd8c45f7ef1e"/><link rel="preconnect" href="https://www.googletagmanager.com"/><link rel="dns-prefetch" href="https://www.googletagmanager.com"/><link as="script" rel="preload" href="/webpack-runtime-05b088398a509adfe95a.js"/><link as="script" rel="preload" href="/framework-c185cfc5f8136c5f10e3.js"/><link as="script" rel="preload" href="/app-4c1f2ed53f04af226610.js"/><link as="script" rel="preload" href="/9b9e5659f59e0e1c5143a378d28902f44da4d89e-e453738ede01b7f1f41e.js"/><link as="script" rel="preload" href="/component---src-templates-blogs-post-js-6d68889f63a0b510bc99.js"/><link as="fetch" rel="preload" href="/page-data/post-2/page-data.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/sq/d/3649515864.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/sq/d/63159454.json" crossorigin="anonymous"/><link as="fetch" rel="preload" href="/page-data/app-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div class="mainContent__MainContent-sc-gv3d4z-0 jRpIVh"><div class="containerLayout__ContainerLayout-sc-25l7nr-0 htkSKq"><nav><div class="container"><div class="style__NavbarElement-sc-1kk5mj1-1 AJHle"><div class="style__NavbarLogo-sc-1kk5mj1-0 eVbtIG"><h3><a href="/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="align-middle"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg> <span class="align-middle"> <!-- -->Owen Craston<!-- --> </span></a></h3></div><div class="main-navigation"><ul class="style__NavbarList-sc-1kk5mj1-2 daAqMz"><li><a class="lined-link" href="/"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span> About </span> </a></li><li><a class="lined-link" href="/blog"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg> <span> Articles </span> </a></li></ul></div></div></div></nav></div><div class="containerLayout__ContainerLayout-sc-25l7nr-0 htkSKq"><main><div class="posts__Intro-sc-4d4syh-0 hTfLtB"><div class="containerLayout__ContainerLayout-sc-25l7nr-0 htkSKq"><div><article class="posts__ArticlePost-sc-4d4syh-2 hNCGIU"><header><h1 class="posts__Title-sc-4d4syh-1 gqZKMF">Common Data Structures in Kotlin</h1><small class="posts__SmallText-sc-4d4syh-3 bYRmTJ"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="align-middle text-primary"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span class="align-middle"> date published : <!-- -->October 15, 2021<!-- --> </span></small><small class="posts__SmallText-sc-4d4syh-3 bYRmTJ"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="align-middle text-primary"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span class="align-middle"> read time : <!-- -->15<!-- --> mins </span></small></header><div class="posts__ArticleBody-sc-4d4syh-4 BGELl"><p>Recently, I have been using a lot more data structures in Kotlin and I found there was a lack of information for <code>Kotlin</code> vs its older brother <code>Java</code>. In this blog post,  I have tried to compile a list of common data structures with their runtimes and syntax in Kotlin.
+It’s worth noting that because <code>Kotlin is backward-compatible with Java</code>, all the <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collections.html">same collections from Java</a> can be used. The main difference between <a href="https://kotlinlang.org/docs/collections-overview.html">Kotlin collections</a> and their Java counterpart, is the concept of a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-collection/">mutable collection</a>. <code>Immutable collections are read only</code> whereas the mutable collections allow for adding, removing and updating elements within it. Since <code>mutable</code> collections are inherently …mutable… they do not need to be instantiated with <code>var</code> as the reference will not be changing - only the contents of the collection will change.</p>
+<h1>Arrays</h1>
+<p><a href="https://kotlinlang.org/docs/basic-types.html#arrays">Arrays in Kotlin</a> are a primitive data structure that are fixed in size, and allow for getting and setting values in constant time.</p>
+<h2>Creating an Array</h2>
+<h3>Using <code>arrayOf</code></h3>
+<ul>
+<li>Pass in the values for the array and the array will be created with the proper size, type and elements</li>
+<li>Use <code>arrayOfNulls</code> to create an array of a given size with all null values</li>
+</ul>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">	// Create an array with values
+	val nums1 = arrayOf(1, 2, 3, 4) //implicit type declaration
+	val nums2 = arrayOf&lt;Int&gt;(1, 2, 3) //explicit type declaration
+	// Create an Array&lt;Int?&gt; of size 4 with values [null, null, null, null]
+	val nulls: Array&lt;Int?&gt; = arrayOfNulls&lt;Int&gt;(4)</code>
+        </deckgo-highlight-code>
+<h3>Using the Array <code>constructor</code></h3>
+<ul>
+<li>Pass in the size of the array</li>
+<li>Pass a function that returns the array value given an index</li>
+</ul>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">	// Creates an Array&lt;Int&gt; with values [0, 1, 2, 3, 4]
+	val nums = Array(5) { i -&gt; i}
+	// Creates an Array&lt;String&gt; with values [&quot;0&quot;, &quot;1&quot;, &quot;4&quot;, &quot;9&quot;, &quot;16&quot;]
+	val strings = Array(5) { i -&gt; (i * i).toString() }</code>
+        </deckgo-highlight-code>
+<h1>Primitive Arrays</h1>
+<p>Kotlin also provides Array classes for primitives that can offer some nice syntax. The options are the following:</p>
+<ul>
+<li>ByteArray</li>
+<li>CharArray</li>
+<li>ShortArray</li>
+<li>IntArray</li>
+<li>LongArray</li>
+<li>DoubleArray</li>
+<li>FloatArray</li>
+<li>BooleanArray</li>
+</ul>
+<p>These arrays can be created by passing the values of the array, the size of the array or the size and a lambda expression.</p>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">	// Array of int of size 3 with values [1, 2, 3]
+	var arr1 =  intArrayOf(1, 2, 3)
+	// Array of booleans of size 3 with values [true, false, true]
+	var arr2 =  booleanArrayOf(true, false, true)
+	// Array of int of size 5 with values [0, 0, 0, 0, 0]
+	val arr3 = IntArray(5)
+	// Array of chars of size 5 with values [, , , , ]
+	val arr4 = CharArray(5)
+	// Array of int of size 5 with values [42, 42, 42, 42, 42]  
+	val arr5 =  IntArray(5)  {  42  }
+	// Array of int of size 5 with values [0, 1, 2, 3, 4] 
+	// (values initialised to their index value)  
+	var arr6 =  IntArray(5)  { it -&gt; it  }</code>
+        </deckgo-highlight-code>
+<h2>Array Methods and Runtimes</h2>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Method</th>
+<th>Time Complexity</th>
+<th>Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access value at index</td>
+<td>array.get(index)</td>
+<td>O(1)</td>
+<td>array[index]</td>
+</tr>
+<tr>
+<td>Set value at index</td>
+<td>array.set(index, value)</td>
+<td>O(1)</td>
+<td>array[index] = value</td>
+</tr>
+<tr>
+<td>Sort array in place by natural order</td>
+<td>array.sort()</td>
+<td>O(nlogn)</td>
+<td></td>
+</tr>
+<tr>
+<td>Sort array in place in reverse order</td>
+<td>array.sortDescending()</td>
+<td>O(nlogn)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1>Lists</h1>
+<p>Similar to the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">Java list</a>, the <a href="https://kotlinlang.org/docs/collections-overview.html#list">Kotlin List</a> is an interface that allows for the storage of elements in a specified order, with indexed access to these elements. It also allows for the growing and shrinking of the list, given it is mutable. The default implementation of <code>List</code> in Kotlin is an <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/">ArrayList</a> but others are available.</p>
+<h2>Creating A List</h2>
+<h3>A <code>read only</code> list can be created using the <code>listOf()</code> function.</h3>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">val numbers = listOf(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;) //implicit type declaration
+val numbers2 = listOf&lt;String&gt;(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;) // explicit type declaration</code>
+        </deckgo-highlight-code>
+<h3>A mutable list can be created using <code>mutableListOf()</code></h3>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">val numbers = mutableListOf(1, 2, 3, 4) //implicit type declaration
+val numbers2 = mutableListOf&lt;Int&gt;(1, 2, 3, 4) // explicit type declaration</code>
+        </deckgo-highlight-code>
+<h2>List Methods and Runtimes</h2>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Method</th>
+<th>Runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Get the size of the list</td>
+<td>list.size</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Add element to list</td>
+<td>list.add(element)</td>
+<td>O(1) unless a new backing array needs to be created. In this case all the old values will need to be copied over making it O(n)</td>
+</tr>
+<tr>
+<td>Add element at index</td>
+<td>list.add(index, element)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Get element at index</td>
+<td>list.get(index)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Remove a specific element</td>
+<td>list.remove(element)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Remove an element at a specific index</td>
+<td>list.removeAt(index)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Get the index of a specific element</td>
+<td>list.indexOf(element)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Check if the list contains an element</td>
+<td>list.contains(element)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Check if the list is null or empty</td>
+<td>list.isNullOrEmpty()</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>randomly shuffle list in place</td>
+<td>list.shuffle()</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>return randomly shuffled version of a list</td>
+<td>val shuffled = list.shuffled()</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>sort list in place by natural order</td>
+<td>list.sort()</td>
+<td>O(nlogn)</td>
+</tr>
+<tr>
+<td>return sorted list by natural order</td>
+<td>val s = list.sorted()</td>
+<td>O(nlogn)</td>
+</tr>
+<tr>
+<td>sort list in place in descending order</td>
+<td>list.sortByDescending{ it }</td>
+<td>O(nlogn)</td>
+</tr>
+<tr>
+<td>return sorted list in descending order</td>
+<td>val s = list.sortedByDescending{ it }</td>
+<td>O(nlogn)</td>
+</tr>
+<tr>
+<td>sort list in place according to its natural order based on the returned property of the expression. This can be used to sort objects by a certain property.</td>
+<td>val values = mutableListOf(1 to “a”, 2 to “b”)  values.sortBy { it.second }</td>
+<td>O(nlogn)</td>
+</tr>
+<tr>
+<td>return sorted list according to its natural order based on the returned property of the expression. This can be used to sort objects by a certain property.</td>
+<td>val values = mutableListOf(1 to “a”, 2 to “b”) val sorted = values.sortBy { it.second }</td>
+<td>O(nlogn)</td>
+</tr>
+<tr>
+<td>Return a read only view of a portion of a list from starting index (inclusive) until end index (exclusive)</td>
+<td>val list =  listOf(1, 2, 3, 4, 5) val s = list.subList(2, 4) // [3, 4]</td>
+<td>O(1) since its backed by the source array</td>
+</tr>
+<tr>
+<td>Return list as an array</td>
+<td>val arr = list.toTypedArray()</td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+<h1>Linked List</h1>
+<p>This data structure is rarely used and for this reason Kotlin has opted to not implement it. <a href="https://discuss.kotlinlang.org/t/why-kotlin-does-not-provide-linkedlist-implementation/15991">Here</a> is a thread on why they opted to not support it natively although it’s still possible to achieve this functionality using the <a href="https://docs.oracle.com/javase/7/docs/api/java/util/LinkedList.html">Java LinkedList</a>. It is worth noting that this class is a <a href="https://en.wikipedia.org/wiki/Doubly_linked_list">doubly linked list</a>.</p>
+<h2>Creating a Linked List</h2>
+<h3>Importing <code>import java.util.LinkedList</code> allows for instantiating it as would any other class.</h3>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">import java.util.LinkedList
+val list = listOf(&quot;Dog&quot;, &quot;Cat&quot;, &quot;Lion&quot;)
+val linkedList =  LinkedList&lt;String&gt;()
+linkedList.addAll(list) 
+println(linkedList) // [Dog, Cat, Lion]
+linkedList.add(&quot;Parrot&quot;)
+println(linkedList) // [Dog, Cat, Lion, Parrot]</code>
+        </deckgo-highlight-code>
+<h2>Linked List Methods and Runtimes</h2>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Method</th>
+<th>Runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Append element to the end of the linked list</td>
+<td>linkedList.add(element)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Add element at a specific index in the linked list</td>
+<td>linkedList.add(index, element)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Get element at index in the linked list</td>
+<td>linkedList.get(index)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Remove an element from the linked list</td>
+<td>linkedList.remove(element)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Remove element at a specific index</td>
+<td>linkedList.removeAt(index)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Check if a linked list contains an element</td>
+<td>linkedList.contains(element)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Return the linked list in reverse order</td>
+<td>val r = linkedList.reversed()</td>
+<td>O(1) since the list is doubly linked</td>
+</tr>
+</tbody>
+</table>
+<h1>Set</h1>
+<p>A <a href="https://kotlinlang.org/docs/collections-overview.html#set">Set</a> stores unique elements. Like all collections in Kotlin, there are the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/">read only set</a> and the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/">MutableSet</a>, which offers write access. In some cases the order of a set is not reliable, that is to say that the order of insertion is not maintained. However, the default implementation of a set in Kotlin uses a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-set/">LinkedHashSet</a> so the order of insertion is preserved.</p>
+<h2>Creating a Set</h2>
+<h3>A <code>read only</code> set can be created using the <code>setOf</code> function</h3>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">val mySet = setOf(1, 2, 3, 4) //implicit type declaration
+val mySet2 = setOf&lt;Int&gt;(1, 2, 3, 4) // explicit type declaration</code>
+        </deckgo-highlight-code>
+<h3>A mutable set can be created using the <code>mutableSetOf</code> function</h3>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">val mySet = mutableSetOf(1, 2, 3, 4) //implicit type declaration
+val mySet2 = mutableSetOf&lt;Int&gt;(1, 2, 3, 4) // explicit type declaration
+mySet.add(5)
+mySet.add(3)
+println(mySet2) // [1, 2, 3, 4, 5], notice how 4 was not added twice</code>
+        </deckgo-highlight-code>
+<h2>Set Methods and Runtimes</h2>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Method</th>
+<th>Runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Get the size of the set</td>
+<td>mySet.size</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Add element to the set</td>
+<td>mySet.add(element)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Remove element from set</td>
+<td>mySet.remove(element)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Check if a set contains an element</td>
+<td>mySet.contains(element)</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<h1>Map</h1>
+<p>A <a href="https://kotlinlang.org/docs/collections-overview.html#map">Map</a> stores key-value pairs with unique keys. Values in the map can be stored more than once if they are stored under different keys. Similarly to the set, some implementations of this <code>interface</code> do not preserve order, however, the default implementation of <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-linked-hash-map/">LinkedHashMap</a> does.</p>
+<h2>Creating a Map</h2>
+<h3>A <code>read only</code> map can be created using the <code>mapOf</code> function</h3>
+<h4>A map will always have a <code>type for the key</code> and a <code>type for the value</code> so it’s important to be mindful of that when explicitly declaring a map.</h4>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">val numsMap = mapOf(&quot;one&quot; to 1, &quot;two&quot; to 2, &quot;three&quot; to 3) //implicit type declaration
+val numsMap2 = mapOf&lt;String, Int&gt;(&quot;one&quot; to 1, &quot;two&quot; to 2, &quot;three&quot; to 3) // explicit type declaration
+// The above will create a map of type &lt;String, Int&gt; with the key/values {one=1, two=2, three=3}</code>
+        </deckgo-highlight-code>
+<h3>A mutable map can be created using the <code>mutableMapOf</code> function</h3>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">val numsMap = mutableMapOf(&quot;one&quot; to 1, &quot;two&quot; to 2, &quot;three&quot; to 3) //implicit type declaration
+val numsMap2 = mutableMapOf&lt;String, Int&gt;(&quot;one&quot; to 1, &quot;two&quot; to 2, &quot;three&quot; to 3) // explicit type 
+println(numsMap) // {one=1, two=2, three=3}
+numsMap.put(&quot;five&quot;, 5) // add an entry
+println(numsMap) // {one=1, two=2, three=3, five=5}
+println(numsMap.get(&quot;three&quot;)) // 3
+numsMap.remove(&quot;one&quot;) // remove an enrty
+println(numsMap) // {two=2, three=3, five=5}</code>
+        </deckgo-highlight-code>
+<h2>Map Methods and Runtimes</h2>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Method</th>
+<th>Runtime</th>
+<th>Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Get the size of the map</td>
+<td>myMap.size</td>
+<td>O(1)</td>
+<td></td>
+</tr>
+<tr>
+<td>Add/modify an entry to the map</td>
+<td>myMap.put(key, value)</td>
+<td>O(1)</td>
+<td>myMap[key] = value</td>
+</tr>
+<tr>
+<td>Remove an entry from the map</td>
+<td>myMap.remove(key)</td>
+<td>O(1)</td>
+<td></td>
+</tr>
+<tr>
+<td>Check if map contains a key</td>
+<td>myMap.contains(key)</td>
+<td>O(1)</td>
+<td>myMap.contains(key).let {…}</td>
+</tr>
+<tr>
+<td>Check if a map contains a value</td>
+<td>myMap.containsValue(value)</td>
+<td>O(n)</td>
+<td>myMap.containsValue(value).let {…}</td>
+</tr>
+</tbody>
+</table>
+<h1>Heap</h1>
+<p><a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">Heaps</a> are great! There are generally two types of heaps. A min heap which stores the minimum element at the root of the tree, and a max heap which instead stores the largest value at the root. In Kotlin, we can leverage the <a href="https://docs.oracle.com/javase/7/docs/api/java/util/PriorityQueue.html">PriorityQueue</a> to create this data structure.</p>
+<h2>Creating a Min Heap with a Priority Queue</h2>
+<p>The default implementation of a PriorityQueue actually gives the min heap functionality. Since Kotlin does not support this out of the box, it’s necessary to <code>import java.util.PriorityQueue</code>. Once PriorityQueue is imported, one can be declared as such:</p>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">import java.util.PriorityQueue
+
+val nums = listOf(5, 2, 4, 1, 3)
+val minHeap = PriorityQueue&lt;Int&gt;() // declare a min heap with int values
+minHeap.addAll(nums) // add elements of a Collection with addAll assuming they are the same type
+println(minHeap) // [1, 2, 4, 5, 3]
+minHeap.add(0)
+println(minHeap) // [0, 2, 1, 5, 3, 4]
+val min = minHeap.poll() // 0, removes 0 from the heap
+println(minHeap) // [1, 2, 4, 5, 3] since 1 is not the smallest value
+val min2 = minHeap.peek() // returns 1 but does not remove it from the heap
+println(min2) // 1
+println(minHeap) // [1, 2, 4, 5, 3]</code>
+        </deckgo-highlight-code>
+<h2>Creating a Max Heap with a PriorityQueue</h2>
+<p>To turn the PriorityQueue into a max heap, it will be required to pass an instance of <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparator/">comparator</a>. Luckily, most of the common comparators can be found <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.comparisons/">here</a>. The one that will enable the max heap functionality is the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.comparisons/compare-by-descending.html#comparebydescending">compareByDescending</a> function. This will tell the PriorityQueue to give the highest priority to the largest value.</p>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">import java.util.PriorityQueue
+val nums = listOf(5, 2, 4, 1, 3)
+val maxHeap = PriorityQueue&lt;Int&gt;(compareByDescending{it})
+maxHeap.addAll(nums)
+println(maxHeap) // [5, 3, 4, 1, 2]
+maxHeap.add(0)
+println(maxHeap) // [5, 3, 4, 1, 2, 0]
+val max = maxHeap.poll() // returns and removes 5 from the heap
+println(max) // 5
+println(maxHeap) // [4, 3, 0, 1, 2]
+val max2 = maxHeap.peek()  // returns 4 but does not remove it from the heap
+println(max2) // 4
+println(maxHeap) // [4, 3, 0, 1, 2]</code>
+        </deckgo-highlight-code>
+<h2>Heap (PriorityQueue) Methods and Runtimes</h2>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Method</th>
+<th>Runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Get the size of the heap</td>
+<td>heap.size</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Add element to heap</td>
+<td>heap.add(element)</td>
+<td>O(logn)</td>
+</tr>
+<tr>
+<td>Add a collection of elements to a heap (does not work with arrays)</td>
+<td>heap.addAll(list)</td>
+<td>O(nlogn)</td>
+</tr>
+<tr>
+<td>Return and remove the root of the heap (min/max value)</td>
+<td>heap.poll()</td>
+<td>O(logn) since we will need to re heapify the heap</td>
+</tr>
+<tr>
+<td>Return the root of the heap (min/max)</td>
+<td>heap.peek()</td>
+<td>O(1) as no reconstruction is needed</td>
+</tr>
+<tr>
+<td>Remove a specific element from the heap</td>
+<td>heap.remove(element)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Check if an element is present in the heap</td>
+<td>heap.contains(element)</td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+<h1>Stacks</h1>
+<p>A <a href="https://en.wikipedia.org/wiki/Stack_(abstract_data_type)">Stack</a> is a <code>last in, first out</code>, or <code>LIFO</code> for short, data structure. It can be thought of as a stack of plates, where the first plate grabbed is going to be the top-most plate (the one that was added last). Again, Kotlin does not provide an implementation of this out of the box so we must rely on its older brother Java. Java has a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Stack.html">Stack</a> class but as per the documentation, it is recommended to use an <a href="https://docs.oracle.com/javase/7/docs/api/java/util/ArrayDeque.html">ArrayDeque</a> for all stack/queue needs. More information on this decision can be found in <a href="https://stackoverflow.com/questions/12524826/why-should-i-use-deque-over-stack">this thread</a>. Importing<code>import java.util.ArrayDeque</code> is all that’s needed to get started.</p>
+<h2>Creating a Stack</h2>
+<h3>ArrayDeque can be used for both <code>LIFI</code> and <code>FIFO</code> (first-in &#x26; first-out) structures. By always pushing/popping from the front of the stack it’s possible to achieve the desired stack behaviour.</h3>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">import java.util.ArrayDeque
+
+val stack = ArrayDeque&lt;Int&gt;()
+stack.push(1)
+stack.push(2)
+stack.push(3)
+stack.push(4)
+println(stack)           // [4, 3, 2, 1]
+println(stack.isEmpty()) // false
+println(stack.peek())    // 4
+println(stack)           // [4, 3, 2, 1]
+println(stack.pop())     // 4
+println(stack)           // [3, 2, 1]
+stack.push(9)
+println(stack)           // --&gt; [9, 3, 2, 1]</code>
+        </deckgo-highlight-code>
+<h2>Stack (ArrayDeque) Methods and Runtimes</h2>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Method</th>
+<th>Runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Get the size of the stack</td>
+<td>stack.size</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Push element onto the stack</td>
+<td>stack.push(element)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Return and remove a the last element from the stack</td>
+<td>stack.pop()</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Return the last element from the stack (do not remove)</td>
+<td>stack.peek()</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Remove a specific element from the stack</td>
+<td>stack.remove(element)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Check if the stack is empty</td>
+<td>stack.isEmpty()</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<h1>Queue</h1>
+<h3>A queue is a <code>first in first out</code> or <code>FIFO</code> for short, data structure, and can be thought of as the average lineup to get into a concert. The first to get there is the first to get out of the queue. <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Queue.html">Queue</a> is an interface that can be implemented by either <a href="https://docs.oracle.com/javase/7/docs/api/java/util/ArrayDeque.html">ArrayDeque</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/util/PriorityQueue.html">PriorityQueue</a> or <a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html">LinkedList</a> (there are more options but these are by far the most common).</h3>
+<h2>Creating a Queue</h2>
+<h3>Since PriorityQueue will unnecessarily add extra functionality (see heap section above) and the LinkedList is not very cache-friendly, it is advised to use <code>ArrayDeque</code> to implement a queue. To get started importing <code>import java.util.Queue</code> and <code>import java.util.ArrayDeque</code> is required.</h3>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">import java.util.ArrayDeque
+import java.util.Queue
+val queue: Queue&lt;Int&gt; = ArrayDeque&lt;Int&gt;()
+queue.add(1)
+queue.add(2)
+queue.add(3)
+queue.add(4)
+println(queue) // [1, 2, 3, 4]    
+println(queue.isEmpty()) // false
+println(queue.peek()) // 1
+println(queue) // [1, 2, 3, 4]      
+println(queue.poll()) // 1  
+println(queue) // [2, 3, 4]
+queue.add(9) 
+println(queue) // [2, 3, 4, 9]</code>
+        </deckgo-highlight-code>
+<p>By implementing the interface <code>Queue</code>, there will no longer be access to the methods <code>push</code> and <code>pop</code> like there were in the <code>stack</code> example above.</p>
+<h2>Queue Methods and Runtimes</h2>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Method</th>
+<th>Runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Get the size of the queue</td>
+<td>queue.size</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Add element to the queue</td>
+<td>queue.add(element) or queue.offer(element)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Return and remove a the first element from the queue</td>
+<td>queue.poll()</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Return the first element from the queue (do not remove)</td>
+<td>queue.peek()</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Remove a specific element from the queue</td>
+<td>queue.remove(element)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Check if the stack is empty</td>
+<td>queue.isEmpty()</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<h1>Undirected Graphs</h1>
+<p>There is no default Graph implementation in Kotlin, however, one can easily be createdusing a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-map/">HashMap</a> of <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-hash-set/">HashSets</a>. Essentially, the adjacency list is stored in a HashMap, which holds a HashSet of nodes.</p>
+<h2>Creating a Graph</h2>
+<deckgo-highlight-code language="kotlin" terminal="carbon" theme="vscode" line-numbers="true"  >
+          <code slot="code">class Graph&lt;T&gt; {
+    val adjacencyMap: HashMap&lt;T, HashSet&lt;T&gt;&gt; = HashMap()
+    fun addEdge(sourceVertex: T, destinationVertex: T) {
+        // Add edge to source vertex / node.
+        adjacencyMap
+            .computeIfAbsent(sourceVertex) { HashSet() }
+            .add(destinationVertex)
+        // Add edge to destination vertex / node.
+        adjacencyMap
+            .computeIfAbsent(destinationVertex) { HashSet() }
+            .add(sourceVertex)
+    }
+}</code>
+        </deckgo-highlight-code>
+<p>The <code>computeIfAbsent</code> will create the edge if it is not present, and add the vertex to that edge. Since it’s using maps/sets behind the scenes, the runtime for adding an edge remains constant with <code>O(1)</code> insertion.</p></div></article><nav><ul class="posts__NaviagtionList-sc-4d4syh-5 jISPpF"><li class="posts__NaviagtionLi-sc-4d4syh-6 hrCVWK"><a rel="prev" href="/post-1/">← <!-- -->Welcome</a></li><li class="posts__NaviagtionLi-sc-4d4syh-6 hrCVWK"></li></ul></nav></div></div></div></main></div></div><footer class="style__FooterStyle-sc-l15n7d-0 enLnGW"><div class="containerLayout__ContainerLayout-sc-25l7nr-0 htkSKq"><div class="style__FooterBody-sc-l15n7d-3 dIvSYk"><ul class="style__FooterSocialMedia-sc-l15n7d-4 kxhywB"><li><a class="style__MediaLink-sc-l15n7d-5 cpqzkY lined-link" href="https://github.com/owencraston" target="_blank" rel="noopener noreferrer" aria-label="follow us on github">github</a></li><li><a class="style__MediaLink-sc-l15n7d-5 cpqzkY lined-link" href="https://www.linkedin.com/in/owencraston/" target="_blank" rel="noopener noreferrer" aria-label="follow us on linkedin">linkedin</a></li></ul><div><p class="text-primary quote"> Ready to take the next step and work together? </p><a href="mailto:owengc12@gmail.com" class="buttons__ButtonDefault-sc-5x08bx-0 icEeVi"> Contact me </a></div></div><div class="box"><p class="style__SubRight-sc-l15n7d-1 iNMUlF"> Good design doesn&#x27;t date. Bad design does. </p><p class="style__CopyRight-sc-l15n7d-2 fipVEj text-dark">©<span> <!-- -->2021<!-- -->, Built with <!-- --> <a href="https://www.gatsbyjs.org">Gatsby</a> </span>Copyright 2020 by <!-- -->Owen Craston<!-- --> </p></div></div></footer></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script async="" src="https://www.googletagmanager.com/gtag/js?id=null"></script><script>
+      
+      function gaOptout(){document.cookie=disableStr+'=true; expires=Thu, 31 Dec 2099 23:59:59 UTC;path=/',window[disableStr]=!0}var gaProperty='null',disableStr='ga-disable-'+gaProperty;document.cookie.indexOf(disableStr+'=true')>-1&&(window[disableStr]=!0);
+      if(!(navigator.doNotTrack == "1" || window.doNotTrack == "1")) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){window.dataLayer && window.dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'null', {"optimize_id":"OPT_CONTAINER_ID","anonymize_ip":true,"cookie_expires":0,"send_page_view":false});
+      }
+      </script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/post-2/";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"polyfill":["/polyfill-b54fdb473a3acc3a54ee.js"],"app":["/app-4c1f2ed53f04af226610.js"],"component---cache-caches-gatsby-plugin-offline-app-shell-js":["/component---cache-caches-gatsby-plugin-offline-app-shell-js-987a8b68155aa806b3d8.js"],"component---src-pages-404-js":["/component---src-pages-404-js-3f586d7ec30d6ef1d9ad.js"],"component---src-pages-blog-js":["/component---src-pages-blog-js-bb4a49d9bb0210711392.js"],"component---src-pages-index-js":["/component---src-pages-index-js-1c1c62a75bbb1bb96b91.js"],"component---src-templates-blogs-categories-js":["/component---src-templates-blogs-categories-js-13e404544e5f2f8f7ecc.js"],"component---src-templates-blogs-post-js":["/component---src-templates-blogs-post-js-6d68889f63a0b510bc99.js"]};/*]]>*/</script><script src="/polyfill-b54fdb473a3acc3a54ee.js" nomodule=""></script><script src="/component---src-templates-blogs-post-js-6d68889f63a0b510bc99.js" async=""></script><script src="/9b9e5659f59e0e1c5143a378d28902f44da4d89e-e453738ede01b7f1f41e.js" async=""></script><script src="/app-4c1f2ed53f04af226610.js" async=""></script><script src="/framework-c185cfc5f8136c5f10e3.js" async=""></script><script src="/webpack-runtime-05b088398a509adfe95a.js" async=""></script></body></html>
