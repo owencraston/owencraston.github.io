@@ -8,5 +8,10 @@
     "id": 1,
     "name": "linkedin",
     "url": "https://www.linkedin.com/in/owencraston/"
+  } ,
+  {
+    "id": 2,
+    "name": "Youtube",
+    "url": "https://www.youtube.com/channel/UCliw7_YwIAlpH7hDmFTYANw"
   }
 ]

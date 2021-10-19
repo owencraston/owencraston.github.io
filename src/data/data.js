@@ -8,6 +8,7 @@ module.exports = {
   SiteSocialLinks: {
     github: 'https://github.com/owencraston',
     linkedin: 'https://www.linkedin.com/in/owencraston/',
+    youtube: 'https://www.youtube.com/channel/UCliw7_YwIAlpH7hDmFTYANw'
   },
   SiteAddress: {
     city: 'Toronto',
