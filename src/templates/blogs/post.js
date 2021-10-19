@@ -1,4 +1,5 @@
 import React from "react"
+import {useEffect} from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
@@ -6,12 +7,29 @@ import { Calendar, Clock } from 'react-feather'
 
 import {Intro, Title, ArticlePost, SmallText, ArticleBody, NaviagtionList, NaviagtionLi } from '../../components/styled/posts'
 import {ContainerLayout} from '../../components/common'
+import {Comment} from '../../components/common'
 
 
 const BlogPost = ({data, pageContext, location}) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
+  const commentBox = React.createRef()
+  useEffect(() => {
+    const scriptEl = document.createElement('script')
+    scriptEl.async = true
+    scriptEl.src = 'https://utteranc.es/client.js'
+    scriptEl.setAttribute('repo', 'owencraston/owencraston.github.io')
+    scriptEl.setAttribute('issue-term', 'title')
+    scriptEl.setAttribute('id', 'utterances')
+    scriptEl.setAttribute('theme', 'github-light')
+    scriptEl.setAttribute('crossorigin', 'anonymous')
+    if (commentBox && commentBox.current) {
+      commentBox.current.appendChild(scriptEl)
+    } else {
+      console.log(`Error adding utterances comments on: ${commentBox}`)
+    }
+  }, [commentBox])
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -59,7 +77,7 @@ const BlogPost = ({data, pageContext, location}) => {
                 </NaviagtionList>
               </nav>
             </div>
-          
+            <Comment commentBox={commentBox} />
         </ContainerLayout>
       </Intro>
     </Layout>
