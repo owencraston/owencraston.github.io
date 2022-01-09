@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "AbdelAli <abdali.dahir@gmail.com>",
   "dependencies": {
-    "@deckdeckgo/highlight-code": "^3.4.0",
+    "@deckdeckgo/highlight-code": "^3.6.0",
     "gatsby": "3.14.6",
     "gatsby-image": "3.11.0",
     "gatsby-link": "^4.4.0",
