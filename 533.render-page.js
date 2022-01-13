@@ -14,8 +14,8 @@ __webpack_require__.d(__webpack_exports__, {
   "deckgo_highlight_code": () => (/* binding */ DeckdeckgoHighlightCode)
 });
 
-// EXTERNAL MODULE: ./node_modules/@deckdeckgo/highlight-code/dist/esm/index-b28ed814.js
-var index_b28ed814 = __webpack_require__(5345);
+// EXTERNAL MODULE: ./node_modules/@deckdeckgo/highlight-code/dist/esm/index-55dc676f.js
+var index_55dc676f = __webpack_require__(7290);
 ;// CONCATENATED MODULE: ./node_modules/@deckdeckgo/highlight-code/dist/esm/deckdeckgo-highlight-code-languages-d1b78fa9.js
 var DeckdeckgoHighlightCodeTerminal;
 (function (DeckdeckgoHighlightCodeTerminal) {
@@ -431,7 +431,7 @@ const deckdeckgoHighlightCodeLanguages = {
 
 
 
-function f(e,n){let t;return (...i)=>{let r=()=>e(...i);t&&clearTimeout(t),t=setTimeout(r,n&&n>0?n:300);}}function L(e,n){return new Promise((t,i)=>{if(document.getElementById(e)){t("CSS already loaded.");return}let r=document.createElement("link");r.id=e,r.setAttribute("rel","stylesheet"),r.setAttribute("href",n),r.addEventListener("load",()=>t("CSS loaded.")),r.addEventListener("error",()=>i("Error loading css.")),r.addEventListener("abort",()=>i("CSS loading aborted.")),document.head.appendChild(r);})}
+function p(e,t){let n;return (...r)=>{let o=()=>e(...r);n&&clearTimeout(n),n=setTimeout(o,t&&t>0?t:300);}}function M(e,t){return new Promise((n,r)=>{if(document.getElementById(e)){n("CSS already loaded.");return}let o=document.createElement("link");o.id=e,o.setAttribute("rel","stylesheet"),o.setAttribute("href",t),o.addEventListener("load",()=>n("CSS loaded.")),o.addEventListener("error",()=>r("Error loading css.")),o.addEventListener("abort",()=>r("CSS loading aborted.")),document.head.appendChild(o);})}var m=()=>window&&window.getSelection?window.getSelection():document&&document.getSelection?document.getSelection():document&&document.selection?document.selection.createRange().text:null,k=e=>{s({element:e,collapse:"end"});},s=({element:e,collapse:t})=>{if(!e)return;let n=document.createRange();n.selectNodeContents(e),n.collapse(t==="start");let r=m();r?.removeAllRanges(),r?.addRange(n),n.detach();};var F=e=>{e?.key==="Tab"&&(e.preventDefault(),document.execCommand("insertHTML",!1,"&#009"));};
 
 function loadTheme(theme) {
   if (!theme || theme === undefined) {
@@ -723,7 +723,7 @@ var Prism = (function (_self) {
 					//    at _.util.currentScript (http://localhost/components/prism-core.js:119:5)
 					//    at Global code (http://localhost/components/prism-core.js:606:1)
 
-					var src = (/at [^(\r\n]*\((.*):.+:.+\)$/i.exec(err.stack) || [])[1];
+					var src = (/at [^(\r\n]*\((.*):[^:]+:[^:]+\)$/i.exec(err.stack) || [])[1];
 					if (src) {
 						var scripts = document.getElementsByTagName('script');
 						for (var i in scripts) {
@@ -1748,8 +1748,14 @@ if (typeof commonjsGlobal !== 'undefined') {
 ********************************************** */
 
 Prism.languages.markup = {
-	'comment': /<!--[\s\S]*?-->/,
-	'prolog': /<\?[\s\S]+?\?>/,
+	'comment': {
+		pattern: /<!--(?:(?!<!--)[\s\S])*?-->/,
+		greedy: true
+	},
+	'prolog': {
+		pattern: /<\?[\s\S]+?\?>/,
+		greedy: true
+	},
 	'doctype': {
 		// https://www.w3.org/TR/xml/#NT-doctypedecl
 		pattern: /<!DOCTYPE(?:[^>"'[\]]|"[^"]*"|'[^']*')+(?:\[(?:[^<"'\]]|"[^"]*"|'[^']*'|<(?!!--)|<!--(?:[^-]|-(?!->))*-->)*\]\s*)?>/i,
@@ -1766,11 +1772,14 @@ Prism.languages.markup = {
 				greedy: true
 			},
 			'punctuation': /^<!|>$|[[\]]/,
-			'doctype-tag': /^DOCTYPE/,
+			'doctype-tag': /^DOCTYPE/i,
 			'name': /[^\s<>'"]+/
 		}
 	},
-	'cdata': /<!\[CDATA\[[\s\S]*?\]\]>/i,
+	'cdata': {
+		pattern: /<!\[CDATA\[[\s\S]*?\]\]>/i,
+		greedy: true
+	},
 	'tag': {
 		pattern: /<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/,
 		greedy: true,
@@ -2415,12 +2424,76 @@ const parseCode = async ({ refContainer, refCode, code, lineNumbers, highlightLi
 
 const loadGoogleFonts = async (terminal) => {
   if (terminal === DeckdeckgoHighlightCodeTerminal.UBUNTU) {
-    await L('google-fonts-ubuntu', 'https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono&display=swap');
+    await M('google-fonts-ubuntu', 'https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono&display=swap');
   }
 };
 
+const injectRequiredJS = ({ lang }) => {
+  return new Promise((resolve) => {
+    let script = document.querySelector(`deckdeckgo-prism-${lang}`);
+    if (script) {
+      resolve(script.hasAttribute('deckdeckgo-prism-loaded') ? 'loaded' : 'attached');
+      return;
+    }
+    script = document.createElement('script');
+    script.setAttribute('deckdeckgo-prism', lang);
+    script.defer = true;
+    script.src = scriptSrc(lang);
+    script.addEventListener('load', () => {
+      script.setAttribute('deckdeckgo-prism-loaded', lang);
+      resolve('loaded');
+    });
+    script.addEventListener('error', () => resolve('error'));
+    script.addEventListener('abort', () => resolve('abort'));
+    document.head.appendChild(script);
+  });
+};
+const loadMainScript = ({ lang, reload = false, prismLanguageLoaded }) => {
+  return new Promise(async (resolve) => {
+    if (!document || !lang || lang === '') {
+      resolve('error');
+      return;
+    }
+    // No need to load javascript, it is there
+    if (lang === 'javascript') {
+      prismLanguageLoaded.emit('javascript');
+      resolve('loaded');
+      return;
+    }
+    const scripts = document.querySelector("[deckdeckgo-prism='" + lang + "']");
+    if (scripts) {
+      if (reload) {
+        prismLanguageLoaded.emit(lang);
+      }
+      resolve('loaded');
+      return;
+    }
+    const script = document.createElement('script');
+    script.onload = () => {
+      script.setAttribute('deckdeckgo-prism-loaded', lang);
+      prismLanguageLoaded.emit(lang);
+    };
+    script.onerror = () => {
+      if (script.parentElement) {
+        script.parentElement.removeChild(script);
+      }
+      resolve('error');
+    };
+    const definition = deckdeckgoHighlightCodeLanguages[lang];
+    const language = definition.main ? definition.main : lang;
+    script.src = scriptSrc(language);
+    script.setAttribute('deckdeckgo-prism', language);
+    script.defer = true;
+    document.head.appendChild(script);
+    script.addEventListener('load', () => resolve('loaded'), { once: true });
+  });
+};
+const scriptSrc = (language) => {
+  return 'https://unpkg.com/prismjs@latest/components/prism-' + language + '.js';
+};
+
 const CarbonThemeStyle = ({ style }) => {
-  return ((0,index_b28ed814.h)("style", null, `
+  return ((0,index_55dc676f.h)("style", null, `
       :host ${style};
     `));
 };
@@ -2432,7 +2505,7 @@ const HighlightStyle = ({ start, end }) => {
   const selectorLineNumbers = start !== undefined && end !== undefined
     ? `code.highlight > div.line-number:nth-child(n+${start + 1}):nth-child(-n+${end + 1}):before`
     : 'div.container code.highlight > div.highlight:before';
-  return ((0,index_b28ed814.h)("style", null, `
+  return ((0,index_55dc676f.h)("style", null, `
       ${selectorGroup} {
         background: var(--deckgo-highlight-code-line-background);
         border-top: var(--deckgo-highlight-code-line-border-top);
@@ -2449,11 +2522,12 @@ const HighlightStyle = ({ start, end }) => {
 
 const deckdeckgoHighlightCodeCss = "code[class*=\"language-\"],pre[class*=\"language-\"]{color:black;background:none;text-shadow:0 1px white;font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=\"language-\"]::-moz-selection,pre[class*=\"language-\"] ::-moz-selection,code[class*=\"language-\"]::-moz-selection,code[class*=\"language-\"] ::-moz-selection{text-shadow:none;background:#b3d4fc}pre[class*=\"language-\"]::selection,pre[class*=\"language-\"] ::selection,code[class*=\"language-\"]::selection,code[class*=\"language-\"] ::selection{text-shadow:none;background:#b3d4fc}@media print{code[class*=\"language-\"],pre[class*=\"language-\"]{text-shadow:none}}pre[class*=\"language-\"]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=\"language-\"],pre[class*=\"language-\"]{background:#f5f2f0}:not(pre)>code[class*=\"language-\"]{padding:.1em;border-radius:.3em;white-space:normal}.token.comment,.token.prolog,.token.doctype,.token.cdata{color:slategray}.token.punctuation{color:#999}.token.namespace{opacity:.7}.token.property,.token.tag,.token.boolean,.token.number,.token.constant,.token.symbol,.token.deleted{color:#905}.token.selector,.token.attr-name,.token.string,.token.char,.token.builtin,.token.inserted{color:#690}.token.operator,.token.entity,.token.url,.language-css .token.string,.style .token.string{color:#9a6e3a;background:hsla(0, 0%, 100%, .5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.function,.token.class-name{color:#DD4A68}.token.regex,.token.important,.token.variable{color:#e90}.token.important,.token.bold{font-weight:bold}.token.italic{font-style:italic}.token.entity{cursor:help}:host ::slotted([slot=code]){display:none}:host([editable]){cursor:var(--deckgo-editable-cursor, text)}:host([editable]) code:empty:not(:focus):after{content:var(--deckgo-highlight-code-empty-text, \"Click to add your code\")}:host(.deckgo-highlight-code-carbon){display:var(--deckgo-highlight-code-carbon-display, block);overflow:var(--deckgo-highlight-code-carbon-overflow, auto);border:var(--deckgo-highlight-code-carbon-border);border-radius:var(--deckgo-highlight-code-carbon-border-radius, 4px);background:var(--deckgo-highlight-code-carbon-background, #282a36);color:var(--deckgo-highlight-code-carbon-color, white);box-shadow:var(--deckgo-highlight-code-carbon-box-shadow, rgba(0, 0, 0, 0.55) 0 8px 16px);margin:var(--deckgo-highlight-code-carbon-margin, 16px 0)}:host(.deckgo-highlight-code-carbon) div.container{margin:var(--deckgo-highlight-code-margin, 0 0 1em)}:host(.deckgo-highlight-code-carbon) ::slotted([slot=code]){color:var(--deckgo-highlight-code-carbon-color, white)}:host(.deckgo-highlight-code-ubuntu){display:var(--deckgo-highlight-code-ubuntu-display, block);overflow:var(--deckgo-highlight-code-ubuntu-overflow, auto);border:var(--deckgo-highlight-code-ubuntu-border);border-radius:var(--deckgo-highlight-code-ubuntu-border-radius, 6px 6px 0 0);background:var(--deckgo-highlight-code-ubuntu-background, #4c1e3d);color:var(--deckgo-highlight-code-ubuntu-color, #ddd);box-shadow:var(--deckgo-highlight-code-ubuntu-box-shadow, 2px 4px 10px rgba(0, 0, 0, 0.5));margin:var(--deckgo-highlight-code-ubuntu-margin, 16px 0)}:host(.deckgo-highlight-code-ubuntu) div.container{margin:var(--deckgo-highlight-code-margin, 0 0 16px);padding:var(--deckgo-highlight-code-padding, 2px 0 0);background:transparent}:host(.deckgo-highlight-code-ubuntu) div.container code{font-family:var(--deckgo-highlight-code-font-family, \"Ubuntu mono\")}:host(.deckgo-highlight-code-ubuntu) div.container code>div.line-number:before{background:var(--deckgo-highlight-code-ubuntu-background, #4c1e3d)}:host(.deckgo-highlight-code-ubuntu) ::slotted([slot=code]){color:var(--deckgo-highlight-code-ubuntu-color, #ddd)}div.container{color:var(--deckgo-highlight-code-color, inherit);background:var(--deckgo-highlight-code-background);padding:var(--deckgo-highlight-code-padding, 0 16px);border-radius:var(--deckgo-highlight-code-border-radius);margin:var(--deckgo-highlight-code-margin, 16px 0);transform-origin:bottom left;transition:all 0.2s ease-in-out;transform:scale(var(--deckgo-highlight-code-zoom, 1));direction:var(--deckgo-highlight-code-direction, ltr);text-align:var(--deckgo-highlight-code-text-align, start);width:var(--deckgo-highlight-code-container-width);height:var(--deckgo-highlight-code-container-height);display:var(--deckgo-highlight-code-container-display, block);justify-content:var(--deckgo-highlight-code-container-justify-content);flex-direction:var(--deckgo-highlight-code-container-flex-direction);align-items:var(--deckgo-highlight-code-container-align-items)}div.container code{overflow-y:var(--deckgo-highlight-code-scroll, auto);white-space:var(--deckgo-highlight-code-white-space, pre-wrap);font-size:var(--deckgo-highlight-code-font-size);font-family:var(--deckgo-highlight-code-font-family, monospace);line-height:var(--deckgo-highlight-code-line-height);display:var(--deckgo-highlight-code-display, block);counter-reset:linenumber;height:var(--deckgo-highlight-code-height, 100%);width:var(--deckgo-highlight-code-width);}div.container code>div.line-number{counter-increment:linenumber;position:relative;padding-left:3.5em}div.container code>div.line-number:before{content:counter(linenumber);display:inline-block;position:absolute;top:0;bottom:0;left:0;width:2.5em;background:var(--deckgo-highlight-code-line-numbers-background);border-right:var(--deckgo-highlight-code-line-numbers-border-right, 1px solid rgba(var(--deckgo-highlight-code-token-comment-rgb, 98, 114, 164), 0.32));color:var(--deckgo-lowlight-code-line-numbers-color, rgba(var(--deckgo-highlight-code-token-comment-rgb, 98, 114, 164), 0.32))}div.container code span.deckgo-highlight-code-anchor-hidden{visibility:hidden}div.container code.highlight div>*{color:var(--deckgo-lowlight-code-line-color);background:var(--deckgo-lowlight-code-line-background);border-top:var(--deckgo-lowlight-code-line-border-top);border-bottom:var(--deckgo-lowlight-code-line-border-bottom);font-weight:var(--deckgo-lowlight-code-line-font-weight);opacity:var(--deckgo-lowlight-code-line-opacity, 0.32)}div.container code.highlight.animate div>*{transition:var(--deckgo-highlight-code-line-transition, all 0.35s ease-in)}div.container code.highlight.animate>div.line-number:before{transition:var(--deckgo-highlight-code-line-transition, all 0.35s ease-in)}div.container code .language-css .token.string:not(.deckgo-highlight-code-line),div.container code .style .token.string:not(.deckgo-highlight-code-line),div.container code .token.entity:not(.deckgo-highlight-code-line),div.container code .token.operator:not(.deckgo-highlight-code-line),div.container code .token.url:not(.deckgo-highlight-code-line){background:inherit}div.container code .token.comment,div.container code .token.prolog,div.container code .token.doctype,div.container code .token.cdata{color:var(--deckgo-highlight-code-token-comment, #6272a4)}div.container code .token.punctuation{color:var(--deckgo-highlight-code-token-punctuation, #6272a4)}div.container code .token.property,div.container code .token.tag,div.container code .token.boolean,div.container code .token.number,div.container code .token.constant,div.container code .token.symbol,div.container code .token.deleted{color:var(--deckgo-highlight-code-token-property, #bd93f9)}div.container code .token.selector,div.container code .token.attr-name,div.container code .token.string,div.container code .token.char,div.container code .token.builtin,div.container code .token.inserted{color:var(--deckgo-highlight-code-token-selector, #50fa7b)}div.container code .token.operator,div.container code .token.entity,div.container code .token.url,div.container code .language-css .token.string,div.container code .style .token.string{color:var(--deckgo-highlight-code-token-operator, #ff79c6)}div.container code .token.atrule,div.container code .token.attr-value,div.container code .token.keyword{color:var(--deckgo-highlight-code-token-atrule, #ff79c6)}div.container code .token.function,div.container code .token.class-name{color:var(--deckgo-highlight-code-token-function, #ffb86c)}div.container code .token.regex,div.container code .token.important,div.container code .token.variable{color:var(--deckgo-highlight-code-token-regex, #f1fa8c)}div.carbon{display:flex;justify-content:flex-start;padding:var(--deckgo-highlight-code-carbon-header-padding, 0.5em 1em);margin:var(--deckgo-highlight-code-carbon-header-margin, 0)}div.carbon>div{display:var(--deckgo-highlight-code-carbon-toolbar-display, block);width:var(--deckgo-highlight-code-carbon-header-button-width, 0.75em);height:var(--deckgo-highlight-code-carbon-header-button-height, 0.75em);border-radius:var(--deckgo-highlight-code-carbon-header-button-border-radius, 50%);margin:var(--deckgo-highlight-code-carbon-header-button-margin, 0.5em 0.375em 0.5em 0)}div.carbon>div.red{background:var(--deckgo-highlight-code-carbon-header-button-red-background, #ff5f56);border:var(--deckgo-highlight-code-carbon-header-button-red-border, 0.5px solid #e0443e)}div.carbon>div.yellow{background:var(--deckgo-highlight-code-carbon-header-button-yellow-background, #ffbd2e);border:var(--deckgo-highlight-code-carbon-header-button-yellow-border, 0.5px solid #dea123)}div.carbon>div.green{background:var(--deckgo-highlight-code-carbon-header-button-green-background, #27c93f);border:var(--deckgo-highlight-code-carbon-header-button-green-border, 0.5px solid #1aab29)}div.ubuntu{display:flex;justify-content:flex-start;align-items:center;padding:var(--deckgo-highlight-code-ubuntu-header-padding, 0 0.5em);height:var(--deckgo-highlight-code-ubuntu-header-height, 25px);background:var(--deckgo-highlight-code-ubuntu-header-background, linear-gradient(#504b45 0%, #3c3b37 100%));font-family:var(--deckgo-highlight-code-ubuntu-header-font-family, \"Ubuntu\")}div.ubuntu>div{display:flex;align-items:center;justify-content:center;width:var(--deckgo-highlight-code-ubuntu-header-button-width, 12px);height:var(--deckgo-highlight-code-ubuntu-header-button-height, 12px);border-radius:var(--deckgo-highlight-code-ubuntu-header-button-border-radius, 50%);margin:var(--deckgo-highlight-code-ubuntu-header-button-margin, 0 0.25em 0 0);font-size:var(--deckgo-highlight-code-ubuntu-header-button-font-size, 0.4375em);color:var(--deckgo-highlight-code-ubuntu-header-button-color, black);text-shadow:var(--deckgo-highlight-code-ubuntu-header-button-text-shadow, 0px 1px 0px rgba(255, 255, 255, 0.2));box-shadow:var(--deckgo-highlight-code-ubuntu-header-button-box-shadow, 0px 0px 1px 0px #41403a, 0px 1px 1px 0px #474642)}div.ubuntu>div.close{background:var(--deckgo-highlight-code-ubuntu-header-button-close-background, linear-gradient(#f37458 0%, #de4c12 100%));border:var(--deckgo-highlight-code-ubuntu-header-button-close-border)}div.ubuntu>div.minimize{background:var(--deckgo-highlight-code-ubuntu-header-button-minimize-background, linear-gradient(#7d7871 0%, #595953 100%));border:var(--deckgo-highlight-code-ubuntu-header-button-minimize-border)}div.ubuntu>div.maximize{background:var(--deckgo-highlight-code-ubuntu-header-button-maximize-background, linear-gradient(#7d7871 0%, #595953 100%));border:var(--deckgo-highlight-code-ubuntu-header-button-maximize-border)}div.ubuntu>div.close span,div.ubuntu>div.minimize span,div.ubuntu>div.maximize span{display:var(--deckgo-highlight-code-ubuntu-header-button-span-display, inherit)}div.ubuntu>p{color:var(--deckgo-highlight-code-ubuntu-header-user-color, #d5d0ce);font-size:var(--deckgo-highlight-code-ubuntu-header-user-font-size, 12px);line-height:var(--deckgo-highlight-code-ubuntu-header-user-line-height, 14px);margin:var(--deckgo-highlight-code-ubuntu-header-user-margin, 0 0 1px 4px)}";
 
-const DeckdeckgoHighlightCode = class {
+let DeckdeckgoHighlightCode = class {
   constructor(hostRef) {
-    (0,index_b28ed814.r)(this, hostRef);
-    this.prismLanguageLoaded = (0,index_b28ed814.c)(this, "prismLanguageLoaded", 7);
-    this.codeDidChange = (0,index_b28ed814.c)(this, "codeDidChange", 7);
+    (0,index_55dc676f.r)(this, hostRef);
+    this.prismLanguageLoaded = (0,index_55dc676f.c)(this, "prismLanguageLoaded", 7);
+    this.prismLanguageError = (0,index_55dc676f.c)(this, "prismLanguageError", 7);
+    this.codeDidChange = (0,index_55dc676f.c)(this, "codeDidChange", 7);
     /**
      * Define the language to be used for the syntax highlighting. The list of supported languages is defined by Prism.js
      */
@@ -2482,13 +2556,8 @@ const DeckdeckgoHighlightCode = class {
      */
     this.revealProgress = 'start';
     this.highlightRows = undefined;
-    this.catchTab = async ($event) => {
-      if ($event && $event.key === 'Tab') {
-        $event.preventDefault();
-        document.execCommand('insertHTML', false, '&#009');
-      }
-    };
-    this.debounceUpdateSlot = f(async () => {
+    this.editFocused = false;
+    this.debounceUpdateSlot = p(async () => {
       await this.copyCodeToSlot();
     }, 500);
   }
@@ -2497,7 +2566,7 @@ const DeckdeckgoHighlightCode = class {
     await this.loadTheme();
   }
   async componentDidLoad() {
-    const languageWasLoaded = await this.languageDidLoad();
+    const languageWasLoaded = this.languageDidLoad();
     await this.loadLanguages();
     if (languageWasLoaded) {
       await this.parse();
@@ -2517,17 +2586,19 @@ const DeckdeckgoHighlightCode = class {
     const { theme } = await loadTheme(this.theme);
     this.themeStyle = theme;
   }
-  async languageLoaded($event) {
-    if (!$event || !$event.detail) {
+  async onLanguageLoaded({ detail }) {
+    if (this.language !== detail || this.loaded) {
       return;
     }
-    if (this.languagesToLoad) {
-      this.languagesToLoad = this.languagesToLoad.filter((lang) => lang !== $event.detail);
+    await this.parse();
+    this.loaded = true;
+  }
+  async onLanguageError({ detail }) {
+    if (this.language !== detail) {
+      return;
     }
-    if (this.language && !this.loaded && (this.languagesToLoad === undefined || this.languagesToLoad.length <= 0)) {
-      await this.parse();
-      this.loaded = true;
-    }
+    this.language = 'javascript';
+    this.prismLanguageLoaded.emit(this.language);
   }
   async parse() {
     if (!this.language || !deckdeckgoHighlightCodeLanguages[this.language]) {
@@ -2536,19 +2607,14 @@ const DeckdeckgoHighlightCode = class {
     await this.parseSlottedCode();
   }
   languageDidLoad() {
-    return new Promise((resolve) => {
-      if (!document || !this.language || this.language === '') {
-        resolve(false);
-        return;
-      }
-      const scripts = document.querySelector("[deckdeckgo-prism-loaded='" + this.language + "']");
-      if (scripts) {
-        resolve(true);
-      }
-      else {
-        resolve(false);
-      }
-    });
+    if (!document || !this.language || this.language === '') {
+      return false;
+    }
+    const scripts = document.querySelector("[deckdeckgo-prism-loaded='" + this.language + "']");
+    if (scripts) {
+      return true;
+    }
+    return false;
   }
   async onLanguage() {
     await this.loadLanguages(true);
@@ -2559,68 +2625,43 @@ const DeckdeckgoHighlightCode = class {
       console.error(`Language ${this.language} is not supported`);
       return;
     }
-    await this.initLanguagesToLoad();
-    await this.loadLanguagesRequire();
-    await this.loadScript(this.language, reload);
+    const loadingScript = await this.loadRequiredLanguages();
+    // We need all required scripts to be loaded. If multiple components are use within the same page, it is possible that the required scripts are attached to the DOM and are still loading.
+    // loadScript will trigger an event on the document, therefore those who do not loadScript will receive the event anyway when everything is ready.
+    if (loadingScript === 'attached') {
+      return;
+    }
+    if (loadingScript === 'error') {
+      this.fallbackJavascript();
+      return;
+    }
+    const state = await loadMainScript({ lang: this.language, reload, prismLanguageLoaded: this.prismLanguageLoaded });
+    if (state === 'loaded') {
+      return;
+    }
+    this.fallbackJavascript();
   }
-  async initLanguagesToLoad() {
+  fallbackJavascript() {
+    console.error('A required script for the language could not be fetched therefore, falling back to JavaScript to display code anyway.');
+    this.prismLanguageError.emit(this.language);
+  }
+  async loadRequiredLanguages() {
     if (!this.language) {
-      return;
+      return 'error';
     }
     const definition = deckdeckgoHighlightCodeLanguages[this.language];
-    this.languagesToLoad = definition.require && definition.require.length > 0 ? [this.language, ...definition.require] : [this.language];
-  }
-  async loadLanguagesRequire() {
-    const promises = [];
-    const definition = deckdeckgoHighlightCodeLanguages[this.language];
-    if (definition.require) {
-      promises.push(...definition.require.map((extraScript) => this.loadScript(extraScript, false, true)));
+    if (!definition.require || definition.require.length <= 0) {
+      return 'loaded';
     }
-    if (promises.length <= 0) {
-      return;
+    // Load now the required languages scripts because Prism needs these to be loaded before the actual main language script
+    const promises = definition.require.map((lang) => injectRequiredJS({ lang }));
+    const states = await Promise.all(promises);
+    const stateError = states.find((state) => ['error', 'abort'].includes(state));
+    if (stateError !== undefined) {
+      return 'error';
     }
-    await Promise.all(promises);
-  }
-  loadScript(lang, reload = false, requireScript = false) {
-    return new Promise(async (resolve) => {
-      if (!document || !lang || lang === '') {
-        resolve();
-        return;
-      }
-      // No need to load javascript, it is there
-      if (lang === 'javascript') {
-        this.prismLanguageLoaded.emit('javascript');
-        resolve();
-        return;
-      }
-      const scripts = document.querySelector("[deckdeckgo-prism='" + lang + "']");
-      if (scripts) {
-        if (reload) {
-          this.prismLanguageLoaded.emit(lang);
-        }
-        resolve();
-        return;
-      }
-      const script = document.createElement('script');
-      script.onload = async () => {
-        script.setAttribute('deckdeckgo-prism-loaded', lang);
-        this.prismLanguageLoaded.emit(lang);
-      };
-      script.onerror = async () => {
-        if (script.parentElement) {
-          script.parentElement.removeChild(script);
-        }
-        // if the language definition doesn't exist or if unpkg is down, display code anyway
-        this.prismLanguageLoaded.emit(lang);
-      };
-      const definition = deckdeckgoHighlightCodeLanguages[this.language];
-      let language = !requireScript && definition.main ? definition.main : lang;
-      script.src = 'https://unpkg.com/prismjs@latest/components/prism-' + language + '.js';
-      script.setAttribute('deckdeckgo-prism', language);
-      script.defer = true;
-      document.head.appendChild(script);
-      script.addEventListener('load', () => resolve(), { once: true });
-    });
+    const stateNotLoaded = states.find((state) => state !== 'loaded');
+    return stateNotLoaded !== undefined ? 'attached' : 'loaded';
   }
   async onLineNumbersChange() {
     await this.parse();
@@ -2675,6 +2716,7 @@ const DeckdeckgoHighlightCode = class {
     if (!this.editable) {
       return;
     }
+    this.editFocused = false;
     await this.copyCodeToSlot();
     await this.parseSlottedCode();
     this.codeDidChange.emit(this.el);
@@ -2696,11 +2738,15 @@ const DeckdeckgoHighlightCode = class {
     code.innerHTML = (_c = this.refCode) === null || _c === void 0 ? void 0 : _c.innerText.replace(/\u200B/g, '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
   }
   edit() {
-    var _a;
-    if (!this.editable) {
+    if (!this.editable || this.editFocused) {
       return;
     }
-    (_a = this.refCode) === null || _a === void 0 ? void 0 : _a.focus();
+    if (!this.refCode) {
+      return;
+    }
+    this.editFocused = true;
+    this.refCode.focus();
+    k(this.refCode);
   }
   /**
    * @internal Used when integrated in DeckDeckGo presentations. Call `nextHighlight()`.
@@ -2773,6 +2819,19 @@ const DeckdeckgoHighlightCode = class {
       end: allRows.indexOf(rows[rows.length - 1])
     };
   }
+  onCopyCleanZeroWidthSpaces($event) {
+    const { target, clipboardData } = $event;
+    if (!target || !clipboardData || !this.el.isEqualNode(target)) {
+      return;
+    }
+    const selection = m();
+    if (!selection) {
+      return;
+    }
+    $event.preventDefault();
+    const text = selection.toString().replace(/\u200B/g, '');
+    clipboardData.setData('text/plain', text);
+  }
   render() {
     var _a;
     const hostClass = {
@@ -2782,37 +2841,37 @@ const DeckdeckgoHighlightCode = class {
     if (this.terminal === DeckdeckgoHighlightCodeTerminal.CARBON) {
       hostClass[`deckgo-highlight-code-theme-${this.theme}`] = true;
     }
-    return ((0,index_b28ed814.h)(index_b28ed814.H, { class: hostClass, onClick: () => this.edit() }, this.renderCarbon(), this.renderUbuntu(), this.renderHighlightStyle(), (0,index_b28ed814.h)("div", { class: "container", ref: (el) => (this.refContainer = el) }, (0,index_b28ed814.h)("code", { class: ((_a = this.highlightLines) === null || _a === void 0 ? void 0 : _a.length) > 0 ? 'highlight' : undefined, contentEditable: this.editable, onBlur: async () => await this.applyCode(), onInput: () => this.inputCode(), onKeyDown: ($event) => this.catchTab($event), ref: (el) => (this.refCode = el) }), (0,index_b28ed814.h)("slot", { name: "code" }))));
+    return ((0,index_55dc676f.h)(index_55dc676f.H, { class: hostClass, onClick: () => this.edit() }, this.renderCarbon(), this.renderUbuntu(), this.renderHighlightStyle(), (0,index_55dc676f.h)("div", { class: "container", ref: (el) => (this.refContainer = el) }, (0,index_55dc676f.h)("code", { class: ((_a = this.highlightLines) === null || _a === void 0 ? void 0 : _a.length) > 0 ? 'highlight' : undefined, contentEditable: this.editable, onBlur: async () => await this.applyCode(), onInput: () => this.inputCode(), onKeyDown: ($event) => F($event), ref: (el) => (this.refCode = el) }), (0,index_55dc676f.h)("slot", { name: "code" }))));
   }
   renderHighlightStyle() {
     if (!this.highlightLines || this.highlightLines.length <= 0) {
       return undefined;
     }
-    return (0,index_b28ed814.h)(HighlightStyle, Object.assign({}, this.highlightRows));
+    return (0,index_55dc676f.h)(HighlightStyle, Object.assign({}, this.highlightRows));
   }
   renderCarbon() {
     if (this.terminal !== DeckdeckgoHighlightCodeTerminal.CARBON) {
       return undefined;
     }
     return [
-      (0,index_b28ed814.h)(CarbonThemeStyle, { style: this.themeStyle }),
-      (0,index_b28ed814.h)("div", { class: "carbon" }, this.renderCarbonCircle('red'), this.renderCarbonCircle('yellow'), this.renderCarbonCircle('green'))
+      (0,index_55dc676f.h)(CarbonThemeStyle, { style: this.themeStyle }),
+      (0,index_55dc676f.h)("div", { class: "carbon" }, this.renderCarbonCircle('red'), this.renderCarbonCircle('yellow'), this.renderCarbonCircle('green'))
     ];
   }
   renderCarbonCircle(color) {
-    return (0,index_b28ed814.h)("div", { class: color });
+    return (0,index_55dc676f.h)("div", { class: color });
   }
   renderUbuntu() {
     if (this.terminal !== DeckdeckgoHighlightCodeTerminal.UBUNTU) {
       return undefined;
     }
-    return ((0,index_b28ed814.h)("div", { class: "ubuntu" }, this.renderUbuntuCircle('close'), this.renderUbuntuCircle('minimize'), this.renderUbuntuCircle('maximize'), (0,index_b28ed814.h)("p", null, (0,index_b28ed814.h)("slot", { name: "user" }))));
+    return ((0,index_55dc676f.h)("div", { class: "ubuntu" }, this.renderUbuntuCircle('close'), this.renderUbuntuCircle('minimize'), this.renderUbuntuCircle('maximize'), (0,index_55dc676f.h)("p", null, (0,index_55dc676f.h)("slot", { name: "user" }))));
   }
   renderUbuntuCircle(mode) {
     const symbol = mode === 'close' ? '&#10005;' : mode === 'minimize' ? '&#9472;' : '&#9723;';
-    return ((0,index_b28ed814.h)("div", { class: mode }, (0,index_b28ed814.h)("span", { innerHTML: symbol })));
+    return ((0,index_55dc676f.h)("div", { class: mode }, (0,index_55dc676f.h)("span", { innerHTML: symbol })));
   }
-  get el() { return (0,index_b28ed814.g)(this); }
+  get el() { return (0,index_55dc676f.g)(this); }
   static get watchers() { return {
     "theme": ["loadTheme"],
     "language": ["onLanguage"],
