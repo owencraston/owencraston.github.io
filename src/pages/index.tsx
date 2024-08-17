@@ -1,5 +1,8 @@
 import Image from "next/image";
 import profile from "../../public/owen_craston_profile.jpg";
+import shopify from "../../public/shopify/shopify_pos_tap.webp";
+import metamask from "../../public/metamask/metamask_mobile_ledger.png";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -26,25 +29,56 @@ export default function Home() {
       </section>
 
       {/* Portfolio Section */}
-      <section className="flex flex-col items-center justify-center min-h-scree px-4 md:px-16">
-        <div className="max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="flex items-center justify-center bg-gray-300 h-64">
-            <span>Project 1</span>
+      <section className="flex flex-col items-center justify-center min-h-screen px-4 md:px-16">
+        <div className="max-w-5xl space-y-12">
+          <div className="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-8">
+            <Image
+              src={shopify}
+              alt="Shopify"
+              width={800}
+              height={600}
+              className="rounded-lg"
+            />
+            <div>
+              <h3 className="text-3xl font-bold">Shopify Point of Sale</h3>
+              <p className="mt-2 text-xl">
+                This is a brief description of Project 1. It includes details
+                about the technologies used and the goals of the project.
+              </p>
+              <Link href="/shopify">
+                <p className="text-blue-500 mt-4 inline-block">
+                  View Project Details
+                </p>
+              </Link>
+            </div>
           </div>
-          <div className="flex items-center justify-center bg-gray-300 h-64">
-            <span>Project 2</span>
-          </div>
-          <div className="flex items-center justify-center bg-gray-300 h-64">
-            <span>Project 3</span>
-          </div>
-          <div className="flex items-center justify-center bg-gray-300 h-64">
-            <span>Project 4</span>
+
+          <div className="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-8">
+            <Image
+              src={metamask}
+              alt="metamask"
+              width={800}
+              height={600}
+              className="rounded-lg"
+            />
+            <div>
+              <h3 className="text-3xl font-bold">Metamask</h3>
+              <p className="mt-2 text-xl">
+                This is a brief description of Project 2. It includes details
+                about the technologies used and the goals of the project.
+              </p>
+              <Link href="/project2">
+                <p className="text-blue-500 mt-4 inline-block">
+                  View Project Details
+                </p>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="flex flex-col items-center justify-center min-h-scree px-4 md:px-16">
+      <section className="flex flex-col items-center justify-center min-h-screen px-4 md:px-16">
         <div className="max-w-2xl text-center">
           <h2 className="text-4xl font-bold mb-8">Get in Touch</h2>
           <p className="text-xl mb-4">
